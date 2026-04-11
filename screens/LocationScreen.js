@@ -15,11 +15,14 @@ import { Ionicons } from '@expo/vector-icons';
 
 // Dữ liệu mẫu: Các tỉnh thành và Quận/Huyện tương ứng của Việt Nam
 const locationData = {
-  "Hà Nội": ["Quận Ba Đình", "Quận Hoàn Kiếm", "Quận Cầu Giấy", "Quận Đống Đa", "Quận Tây Hồ"],
-  "Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 7", "Quận 10", "Quận Tân Bình"],
-  "Đà Nẵng": ["Quận Hải Châu", "Quận Sơn Trà", "Quận Ngũ Hành Sơn", "Quận Thanh Khê"],
-  "Cần Thơ": ["Quận Ninh Kiều", "Quận Bình Thuỷ", "Quận Cái Răng"],
-  "Hải Phòng": ["Quận Hồng Bàng", "Quận Lê Chân", "Quận Ngô Quyền"]
+  "Hà Nội": ["Quận Ba Đình", "Quận Hoàn Kiếm", "Quận Cầu Giấy", "Quận Đống Đa", "Quận Tây Hồ","Nam Từ Liêm","Đông Anh","Gia Lâm","Thanh Trì","Hoài Đức","Đan Phượng","Phúc Thọ","Thạch Thất","Sơn Tây"],
+  "Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 7", "Quận 10", "Quận Tân Bình", "Quận Bình Thạnh", "Quận Phú Nhuận", "Quận Gò Vấp", "Quận Tân Phú", "Quận 12", "Huyện Hóc Môn", "Huyện Củ Chi", "Huyện Nhà Bè"],
+  "Đà Nẵng": ["Quận Hải Châu", "Quận Sơn Trà", "Quận Ngũ Hành Sơn", "Quận Thanh Khê", "Huyện Hòa Vang", "Huyện Hoàng Sa"],
+  "Cần Thơ": ["Quận Ninh Kiều", "Quận Bình Thuỷ", "Quận Cái Răng", "Quận Ô Môn", "Huyện Phong Điền", "Huyện Cờ Đỏ", "Huyện Thới Lai"],
+  "Hải Phòng": ["Quận Hồng Bàng", "Quận Lê Chân", "Quận Ngô Quyền", "Quận Kiến An", "Quận Hải An", "Huyện An Dương", "Huyện An Lão", "Huyện Kiến Thụy", "Huyện Tiên Lãng", "Huyện Vĩnh Bảo"],
+  "Đà Nẵng": ["Quận Hải Châu", "Quận Sơn Trà", "Quận Ngũ Hành Sơn", "Quận Thanh Khê", "Huyện Hòa Vang", "Huyện Hoàng Sa"],
+  "Hải Phòng": ["Quận Hồng Bàng", "Quận Lê Chân", "Quận Ngô Quyền", "Quận Kiến An", "Quận Hải An", "Huyện An Dương", "Huyện An Lão", "Huyện Kiến Thụy", "Huyện Tiên Lãng", "Huyện Vĩnh Bảo"],
+  "Khác":["Khác"]
 };
 
 const zones = Object.keys(locationData); // Danh sách tỉnh/thành phố
@@ -38,6 +41,8 @@ const LocationScreen = ({ navigation }) => {
       return;
     }
     console.log('Vị trí đã chọn:', { zone, area });
+    // Điều hướng sang màn hình LoginFinal
+    navigation.navigate('LoginFinal');
     // TODO: Chuyển sang màn hình chính (Home)
     // navigation.navigate('Home');
   };
