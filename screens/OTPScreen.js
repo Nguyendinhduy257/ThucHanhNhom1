@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'red', // Đổi màu đỏ khi có lỗi
   },
   otpText: {
-    fontSize: 32, // CHỮ TO HƠN
+    fontSize: 14, // CHỮ TO HƠN
     fontWeight: 'bold',
     color: '#181725',
   },

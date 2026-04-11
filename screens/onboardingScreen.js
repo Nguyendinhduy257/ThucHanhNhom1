@@ -53,8 +53,10 @@ const styles = StyleSheet.create({
     marginBottom: 10 
   },
   subtitle: { 
-    fontSize: 16, 
-    color: '#EEE', 
+    fontSize: 12, 
+    color: '#EEE',
+    display: 'flex',
+    justifyContent: 'center', 
     textAlign: 'center', 
     marginBottom: 40 
   },
