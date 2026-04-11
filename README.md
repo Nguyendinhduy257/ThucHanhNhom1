@@ -1,4 +1,4 @@
-Nguyễn Đình Duy - 23810310435 - D18CNPM4
+Tác giả: Nguyễn Đình Duy - 23810310435 - D18CNPM4
 
 -  Hướng dẫn sử dụng: 
 B1: Copy Url của repository này
@@ -18,6 +18,9 @@ B7: Tận hưởng sản phảm \(O.O)/
 
 
 - Video chạy Demo:
+
+
+
 https://github.com/user-attachments/assets/8d1434b7-86f7-42eb-a908-bf4d19a49e9d
 
 
