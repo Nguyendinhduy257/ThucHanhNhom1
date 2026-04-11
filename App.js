@@ -6,6 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from './screens/SplashScreen';
 import onboardingScreen from './screens/onboardingScreen';
 import LoginScreen from './screens/LoginScreen';
+import MobileNumberScreen from './screens/MobileNumberScreen';
+import OTPScreen from './screens/OTPScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +27,12 @@ export default function App() {
         
         {/* Màn hình 3: Login */}
         <Stack.Screen name="SignIn" component={LoginScreen} />
+        
+        {/* Màn hình 4: Nhập số điện thoại */}
+        <Stack.Screen name="MobileNumber" component={MobileNumberScreen} />
+
+        {/* Màn hình 5: Nhập mã OTP */}
+        <Stack.Screen name="OTPScreen" component={OTPScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

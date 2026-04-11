@@ -29,7 +29,11 @@ const LoginScreen = ({ navigation }) => {
         </Text>
 
         {/* Form nhập số điện thoại */}
-        <View style={styles.phoneInputContainer}>
+        <TouchableOpacity
+          style={styles.phoneInputContainer}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('MobileNumber')}
+        >
           {/* Ảnh lá cờ (có thể thay bằng icon cờ Việt Nam/Bangladesh có trong assets) */}
           <Image 
             source={require('../assets/FlagBangladesh.png')} 
@@ -40,8 +44,10 @@ const LoginScreen = ({ navigation }) => {
             style={styles.textInput}
             placeholder="Enter phone number"
             keyboardType="phone-pad" // Mở bàn phím số
+            editable={false}
+            pointerEvents="none"
           />
-        </View>
+        </TouchableOpacity>
 
         <Text style={styles.dividerText}>Or connect with social media</Text>
 
@@ -98,10 +104,13 @@ const styles = StyleSheet.create({
   phoneInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
+    borderBottomWidth: 3,
     borderBottomColor: '#E2E2E2', // Đường viền mờ phía dưới
     paddingBottom: 10,
     marginBottom: 30,
+    borderwidth:5,
+    borderStyle:'solid',
+    borderColor:'black',
   },
   flagIcon: {
     width: 35,
@@ -129,6 +138,9 @@ const styles = StyleSheet.create({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
+    borderwidth:3,
+    borderStyle:'solid',
+    borderColor:'black',
   },
   dividerText: {
     textAlign: 'center',
