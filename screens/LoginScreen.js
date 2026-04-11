@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   countryCode: {
-    fontSize: 18,
+    fontSize: 12,
     fontWeight: '500',
     color: '#000',
     marginRight: 20,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 10,
     color: '#000',
     paddingLeft: 16,
     paddingTop:20,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     color: '#FFF',
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: '600',
   },
 });
