@@ -3,11 +3,11 @@ import { View, StyleSheet, Image, StatusBar } from 'react-native';
 
 const SplashScreen = ({ navigation }) => {
   
-  // Tự động chuyển sang màn hình thứ 2 (WelcomeScreen) sau 5 giây mà không cần người dùng phải làm gì
+  // Tự động chuyển sang màn hình thứ 2 (Onboarding) sau 5 giây mà không cần người dùng phải làm gì
   useEffect(() => {
     const timer = setTimeout(() => {
       // Dùng 'replace' thay vì 'navigate' để người dùng không bấm nút Back quay lại màn hình chờ này được
-      navigation.replace('WelcomeScreen'); 
+      navigation.replace('Onboarding'); 
     }, 5000);
 
     return () => clearTimeout(timer); // Dọn dẹp bộ đếm giờ
