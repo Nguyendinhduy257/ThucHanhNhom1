@@ -11,6 +11,7 @@ const OnboardingScreen = ({ navigation }) => {
       <View style={styles.overlay}>
         <Image source={require('../assets/IconStartScreen.png')} style={styles.icon} />
         <Text style={styles.title}>Welcome{"\n"}to our store</Text>
+        <Text style={styles.subtitle}>Tác giả: Nguyễn Đình Duy - 23810310435</Text>
         <Text style={styles.subtitle}>Get your groceries in as fast as one hour</Text>
         
         <TouchableOpacity 
