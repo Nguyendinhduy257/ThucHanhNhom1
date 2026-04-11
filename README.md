@@ -19,7 +19,7 @@ B5: gõ "Ctrl + ~" và ghi "cd ThucHanhNhom1"
 B6: gõ "npm run web" (chạy trên Web) hoặc "npx expo start" (chạy trên ứng dụng "Expo Go" của điện thoại)
 
 
-B7: Tận hưởng sản phảm \(O.O)/
+B7: Tận hưởng sản phảm  \\(O.O)/
 
 - Ảnh Tác giả trong App:
 
