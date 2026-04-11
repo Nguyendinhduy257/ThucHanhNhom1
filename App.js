@@ -8,6 +8,7 @@ import onboardingScreen from './screens/onboardingScreen';
 import LoginScreen from './screens/LoginScreen';
 import MobileNumberScreen from './screens/MobileNumberScreen';
 import OTPScreen from './screens/OTPScreen';
+import LocationScreen from './screens/LocationScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,9 @@ export default function App() {
 
         {/* Màn hình 5: Nhập mã OTP */}
         <Stack.Screen name="OTPScreen" component={OTPScreen} />
+
+        {/** Màn hình 6: Chọn vị trí */}
+        <Stack.Screen name="LocationScreen" component={LocationScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

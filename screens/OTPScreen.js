@@ -29,6 +29,7 @@ const OTPScreen = ({ navigation }) => {
     if (errorMsg) {
       setErrorMsg('');
     }
+
   };
 
   // Hàm xử lý khi bấm Next
@@ -41,7 +42,8 @@ const OTPScreen = ({ navigation }) => {
 
     setErrorMsg('');
     console.log('Mã OTP hợp lệ:', code);
-    
+        // Điều hướng sang màn hình chọn vị trí
+    navigation.navigate('LocationScreen');
     // TODO: Chuyển sang màn hình Home
     // navigation.navigate('Home');
   };
