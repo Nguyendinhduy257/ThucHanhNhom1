@@ -8,9 +8,25 @@ B4: Mở Visual Studio Code và chọn thư mục vừa CLONE về
 B5: gõ "Ctrl + ~" và ghi "cd ThucHanhNhom1"
 B6: gõ "npm run web" (chạy trên Web) hoặc "npx expo start" (chạy trên ứng dụng "Expo Go" của điện thoại)
 B7: Tận hưởng sản phảm \(O.O)/
+
+- Ảnh Tác giả trong App:
+
+
+<img width="1034" height="1452" alt="image" src="https://github.com/user-attachments/assets/eef7dd1d-6ae1-4327-82b1-8fbfb624272f" />
+![e32a69d1578bd6d58f9a](https://github.com/user-attachments/assets/673ffc10-8400-44bd-8db7-a825e72fb62c)
+
+
+
 - Video chạy Demo:
 https://github.com/user-attachments/assets/8d1434b7-86f7-42eb-a908-bf4d19a49e9d
+
+
+
+
 - Ảnh Demo:
+
+
+
 ![Screenshot_20260411_215045_Expo Go](https://github.com/user-attachments/assets/23f9ffff-8f63-4387-b191-53e6f54e6ef5)
 ![Screenshot_20260411_215052_Expo Go](https://github.com/user-attachments/assets/5da65680-6254-4fe9-89ee-bb879aeaa31b)
 ![Screenshot_20260411_215111_Expo Go](https://github.com/user-attachments/assets/504d594a-361a-4fd8-a065-df8a5b24a86d)
