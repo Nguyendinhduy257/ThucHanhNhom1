@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Import các màn hình từ thư mục screens
 import SplashScreen from './screens/SplashScreen';
 import onboardingScreen from './screens/onboardingScreen';
+import LoginScreen from './screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,10 @@ export default function App() {
         
         {/* Màn hình 2: Welcome (Anh nông dân) */}
         <Stack.Screen name="Onboarding" component={onboardingScreen} />
+        
+        {/* Màn hình 3: Login */}
+        <Stack.Screen name="SignIn" component={LoginScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

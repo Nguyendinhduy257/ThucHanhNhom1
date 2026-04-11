@@ -16,8 +16,7 @@ const LoginScreen = ({ navigation }) => {
       
       {/* 1. Phần ảnh hoa quả phía trên */}
       <Image
-        // Nhớ đổi tên file ảnh này cho khớp với ảnh hoa quả trong thư mục assets của bạn
-        source={require('../assets/fruits-bg.png')} 
+        source={require('../assets/Mask Group.png')} 
         style={styles.headerImage}
         resizeMode="cover"
       />
@@ -31,7 +30,7 @@ const LoginScreen = ({ navigation }) => {
 
         {/* Form nhập số điện thoại */}
         <View style={styles.phoneInputContainer}>
-          {/* Ảnh lá cờ (bạn có thể thay bằng icon cờ Việt Nam/Bangladesh có trong assets) */}
+          {/* Ảnh lá cờ (có thể thay bằng icon cờ Việt Nam/Bangladesh có trong assets) */}
           <Image 
             source={require('../assets/FlagBangladesh.png')} 
             style={styles.flagIcon} 
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
   },
   headerImage: {
     width: '100%',
-    height: 350, // Kích thước xấp xỉ nửa màn hình, bạn có thể tinh chỉnh lại
+    height: 350, // Kích thước xấp xỉ nửa màn hình, có thể tinh chỉnh lại
   },
   contentContainer: {
     paddingHorizontal: 25,
@@ -114,12 +113,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     color: '#000',
-    marginRight: 10,
+    marginRight: 20,
+    width: 60, // Đặt width cố định cho phần mã quốc gia để căn chỉnh đẹp hơn
+    borderRightWidth:3,
+    borderRightColor: '#E2E2E2',
   },
   textInput: {
     flex: 1,
     fontSize: 18,
     color: '#000',
+    paddingLeft: 16,
+    paddingTop:20,
+    paddingBottom: 20,
+    borderRadius:20,
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
   },
   dividerText: {
     textAlign: 'center',
