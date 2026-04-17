@@ -62,3 +62,15 @@ https://github.com/user-attachments/assets/8d1434b7-86f7-42eb-a908-bf4d19a49e9d
 ![Screenshot_20260411_215254_Expo Go](https://github.com/user-attachments/assets/dc1ceff5-1a29-43ad-a724-f906129683ab)
 ![Screenshot_20260411_215305_Expo Go](https://github.com/user-attachments/assets/baa30a5e-0824-4173-b4a6-c7ed36131f3b)
 ![Screenshot_20260411_215316_Expo Go](https://github.com/user-attachments/assets/ca926071-6606-4c71-8e5d-bdc192b1db7d)
+
+
+<img width="1035" height="1470" alt="Screenshot 2026-04-17 155645" src="https://github.com/user-attachments/assets/785a8fe8-94f9-4d5f-a617-a5a31e8315af" />
+<img width="1041" height="1469" alt="Screenshot 2026-04-17 155655" src="https://github.com/user-attachments/assets/b2fc0e16-9252-4f8b-96e0-99008b2e939c" />
+<img width="1040" height="1471" alt="Screenshot 2026-04-17 155704" src="https://github.com/user-attachments/assets/bb3d2bc6-e180-4256-b727-5c8a32e202b6" />
+<img width="1039" height="1477" alt="Screenshot 2026-04-17 155720" src="https://github.com/user-attachments/assets/2b3fa829-5f7b-45ba-a8b3-ae559241cbd3" />
+<img width="1039" height="1472" alt="Screenshot 2026-04-17 155733" src="https://github.com/user-attachments/assets/b818b7db-93f7-4502-8c60-272d58ac4a8a" />
+<img width="1047" height="1467" alt="Screenshot 2026-04-17 155519" src="https://github.com/user-attachments/assets/83987992-7aa4-45a9-ab19-9fc81a8bc4c2" />
+<img width="1048" height="1468" alt="Screenshot 2026-04-17 155529" src="https://github.com/user-attachments/assets/36674280-26cd-4b0b-bc38-565930551c8f" />
+<img width="1037" height="1469" alt="Screenshot 2026-04-17 155614" src="https://github.com/user-attachments/assets/f0b977fc-8ee2-453b-81c2-4ef97470585a" />
+<img width="1038" height="1473" alt="Screenshot 2026-04-17 155639" src="https://github.com/user-attachments/assets/91b15388-aa43-4b20-9838-c849c267feaf" />
+
