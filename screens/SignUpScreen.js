@@ -68,7 +68,7 @@ const SignUpScreen = ({ navigation }) => {
       // TODO: Gọi API đăng ký tại đây
       
       // Đăng ký xong có thể chuyển về Home hoặc màn hình đăng nhập
-      // navigation.navigate('Home');
+       navigation.navigate('Home');
     }
   };
 

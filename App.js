@@ -11,8 +11,13 @@ import OTPScreen from './screens/OTPScreen';
 import LocationScreen from './screens/LocationScreen';
 import LoginFinalScreen from './screens/LoginFinalScreen';
 import SignUpScreen from './screens/SignUpScreen';
-
-
+import HomeScreen from './screens/HomeScreen';
+import ProductDetailScreen from './screens/ProductDetailScreen';
+import ExploreScreen from './screens/ExploreScreen';
+import BeveragesScreen from './screens/BeveragesScreen';
+import DairyEggsScreen from './screens/DairyEggsScreen';
+import CartScreen from './screens/CartScreen';
+import FavouriteScreen from './screens/FavouriteScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -45,7 +50,24 @@ export default function App() {
 
         {/* Màn hình 8: Đăng ký */}
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+
+        {/* Màn hình 9: Trang chủ */}
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        {/* Màn hình 10: Chi tiết sản phẩm */}
+        <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+        {/* Màn hình 11: Khám phá */}
+        <Stack.Screen name="Explore" component={ExploreScreen} />
+        {/* Màn hình 12: Beverages */}
+        <Stack.Screen name="Beverages" component={BeveragesScreen} />
+        {/* Màn hình 13: Dairy & Eggs */}
+        <Stack.Screen name="DairyEggs" component={DairyEggsScreen} />
+        {/* Màn hình 14: Giỏ hàng */}
+        <Stack.Screen name="Cart" component={CartScreen} />
+        {/* Màn hình 15: Yêu thích */}
+        <Stack.Screen name="Favourite" component={FavouriteScreen} />
       </Stack.Navigator>
+      {/* */}
+      
     </NavigationContainer>
   );
 }

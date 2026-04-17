@@ -58,7 +58,7 @@ const LoginFinalScreen = ({ navigation }) => {
             // TODO: Thêm logic gọi API đăng nhập ở đây
 
             // Sau khi đăng nhập thành công thì chuyển sang Home:
-            // navigation.navigate('Home');
+             navigation.navigate('Home');
         }
     };
 
