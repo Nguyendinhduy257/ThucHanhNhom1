@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   View, 
   Text, 
@@ -8,29 +8,37 @@ import {
   Image, 
   TextInput, 
   TouchableOpacity,
-  Platform
+  Platform,
+  Dimensions,
+  StatusBar
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+// --- CẤU HÌNH RESPONSIVE ---
+const { width, height } = Dimensions.get('window');
+const SCREEN_MARGIN = 25; 
+const CARD_WIDTH = width * 0.43; 
 
 // --- COMPONENT CON: Thẻ Sản Phẩm ---
 const ProductCard = ({ product, navigation }) => (
   <View style={styles.cardContainer}>
-    {/* Ấn vào ảnh chuyển sang chi tiết */}
     <TouchableOpacity 
       onPress={() => navigation.navigate('ProductDetail', { product })}
-      style={{ alignItems: 'center' }}
+      style={styles.imageWrapper}
     >
       <Image source={product.imagePath} style={styles.cardImage} resizeMode="contain" />
     </TouchableOpacity>
     
-    <Text style={styles.cardTitle}>{product.title}</Text>
-    <Text style={styles.cardSubtitle}>{product.subTitle}</Text>
+    <View>
+      <Text style={styles.cardTitle} numberOfLines={1}>{product.title}</Text>
+      <Text style={styles.cardSubtitle} numberOfLines={1}>{product.subTitle}</Text>
+    </View>
     
     <View style={styles.cardFooter}>
       <Text style={styles.cardPrice}>${product.price}</Text>
-      {/* Ấn vào dấu + cũng chuyển sang chi tiết */}
       <TouchableOpacity 
         style={styles.addButton}
+        activeOpacity={0.8}
         onPress={() => navigation.navigate('ProductDetail', { product })}
       >
         <Ionicons name="add" size={24} color="#FFF" />
@@ -39,7 +47,7 @@ const ProductCard = ({ product, navigation }) => (
   </View>
 );
 
-// --- COMPONENT CON: Tiêu đề Mục (Section Header) ---
+// --- COMPONENT CON: Tiêu đề Mục ---
 const SectionHeader = ({ title }) => (
   <View style={styles.sectionHeader}>
     <Text style={styles.sectionTitle}>{title}</Text>
@@ -49,20 +57,23 @@ const SectionHeader = ({ title }) => (
   </View>
 );
 
-// --- MÀN HÌNH CHÍNH ---
-// CẬP NHẬT: Thêm { navigation } vào props của HomeScreen
 const HomeScreen = ({ navigation }) => {
+  // State để highlight danh mục (Groceries)
+  const [activeCategory, setActiveCategory] = useState('Pulses');
+  // State để highlight Bottom Tab
+  const [activeTab, setActiveTab] = useState('Shop');
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        
-        {/* Header: Logo & Location */}
+      <StatusBar barStyle="dark-content" />
+      
+      <ScrollView 
+        showsVerticalScrollIndicator={false} 
+        contentContainerStyle={styles.scrollContent}
+      >
+        {/* Header */}
         <View style={styles.header}>
-          <Image 
-            source={require('../assets/carrotLogo.png')} 
-            style={styles.logo} 
-            resizeMode="contain" 
-          />
+          <Image source={require('../assets/carrotLogo.png')} style={styles.logo} resizeMode="contain" />
           <View style={styles.locationContainer}>
             <Ionicons name="location-sharp" size={20} color="#4C4F4D" />
             <Text style={styles.locationText}>Dhaka, Banassre</Text>
@@ -82,389 +93,277 @@ const HomeScreen = ({ navigation }) => {
         {/* Banner */}
         <View style={styles.bannerContainer}>
           <Image 
-            source={require('../assets/AnhTraiCayV2.png') } 
+            source={require('../assets/AnhTraiCayV2.png')} 
             style={styles.bannerImage}
-            resizeMode="fit"
+            resizeMode="stretch" 
           />
         </View>
 
-        {/* Exclusive Offer Section */}
+        {/* Exclusive Offer - ĐÃ THÊM ID */}
         <SectionHeader title="Exclusive Offer" />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
-          {/* CẬP NHẬT: Gom các props thành object product */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScrollContent}>
           <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhTraiChuoi.png'),
-              title: "Organic Bananas",
-              subTitle: "7pcs, Priceg",
-              price: "4.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'ex_1', imagePath: require('../assets/AnhTraiChuoi.png'), title: "Organic Bananas", subTitle: "7pcs, Priceg", price: "4.99" }} 
           />
           <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhTraiTao.png'),
-              title: "Red Apple",
-              subTitle: "1kg, Priceg",
-              price: "2.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'ex_2', imagePath: require('../assets/AnhTraiTao.png'), title: "Red Apple", subTitle: "1kg, Priceg", price: "2.99" }} 
           />
           <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/EggsV1.png'),
-              title: "Fresh Eggs",
-              subTitle: "10pcs, Priceg",
-              price: "6.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'ex_3', imagePath: require('../assets/EggsV1.png'), title: "Fresh Eggs", subTitle: "10pcs, Priceg", price: "6.99" }} 
           />
-          <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/RedEggs.png'),
-              title: "Fresh RedEggs",
-              subTitle: "10pcs, Priceg",
-              price: "9.99"
-            }} 
+                    <ProductCard 
+            navigation={navigation} 
+            product={{ id: 'ex_4', imagePath: require('../assets/eggPasta.png'), title: "Egg Pastal", subTitle: "1kg, Priceg", price: "8.99" }} 
           />
-          <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/GioTraiCay.png'),
-              title: "Fresh vegetables",
-              subTitle: "15pcs, Priceg",
-              price: "11.99"
-            }} 
+                    <ProductCard 
+            navigation={navigation} 
+            product={{ id: 'ex_5', imagePath: require('../assets/eggnoodle1.png'), title: "Egg Noodle", subTitle: "1kg, Priceg", price: "12.99" }} 
+          />
+                    <ProductCard 
+            navigation={navigation} 
+            product={{ id: 'ex_6', imagePath: require('../assets/DairyAndEgg.png'), title: "Milk Cheese", subTitle: "1kg, Priceg", price: "21.99" }} 
           />
         </ScrollView>
 
-        {/* Best Selling Section */}
+        {/* Best Selling - ĐÃ THÊM ID */}
         <SectionHeader title="Best Selling" />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScrollContent}>
           <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhOtChuong.png'),
-              title: "Bell Pepper Red",
-              subTitle: "1kg, Priceg",
-              price: "4.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'bs_1', imagePath: require('../assets/AnhOtChuong.png'), title: "Bell Pepper Red", subTitle: "1kg, Priceg", price: "4.99" }} 
           />
           <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhCuGung.png'),
-              title: "Ginger",
-              subTitle: "250gm, Priceg",
-              price: "4.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'bs_2', imagePath: require('../assets/Coke1.png'), title: "Diet Coke", subTitle: "250gm, Priceg", price: "1.99" }} 
           />
-          <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/CocacolaCan.png'),
-              title: "Coca Cola",
-              subTitle: "250ml, Priceg",
-              price: "2.99"
-            }} 
+                    <ProductCard 
+            navigation={navigation} 
+            product={{ id: 'bs_3', imagePath: require('../assets/DairyAndEgg.png'), title: "Milk Cheese", subTitle: "550gm, Priceg", price: "14.99" }} 
           />
-          <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/Coke1.png'),
-              title: "Coke",
-              subTitle: "250ml, Priceg",
-              price: "2.99"
-            }} 
+                    <ProductCard 
+            navigation={navigation} 
+            product={{ id: 'bs_4', imagePath: require('../assets/EggsV1.png'), title: "White Egg", subTitle: "350gm, Priceg", price: "9.99" }} 
           />
-          <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/appleJuice.png'),
-              title: "Apple Juice",
-              subTitle: "250ml, Priceg",
-              price: "5.99"
-            }} 
+                    <ProductCard 
+            navigation={navigation} 
+            product={{ id: 'bs_5', imagePath: require('../assets/sprite.png'), title: "Sprite", subTitle: "250ml, Priceg", price: "17.99" }} 
           />
         </ScrollView>
 
-        {/* Groceries Section */}
+        {/* Groceries Section with Highlight */}
         <SectionHeader title="Groceries" />
-        {/* Categories inside Groceries */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoryScroll}>
-          <View style={[styles.categoryCard, { backgroundColor: '#F8A44C33' }]}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoryScrollContent}>
+          <TouchableOpacity 
+            style={[
+                styles.categoryCard, 
+                { backgroundColor: '#F8A44C33' },
+                activeCategory === 'Pulses' && styles.categoryActive
+            ]}
+            onPress={() => setActiveCategory('Pulses')}
+          >
             <Image source={require('../assets/AnhNguCoc.png')} style={styles.categoryImage} resizeMode="contain"/>
             <Text style={styles.categoryText}>Pulses</Text>
-          </View>
-          <View style={[styles.categoryCard, { backgroundColor: '#53B17533' }]}>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={[
+                styles.categoryCard, 
+                { backgroundColor: '#53B17533' },
+                activeCategory === 'Rice' && styles.categoryActive
+            ]}
+            onPress={() => setActiveCategory('Rice')}
+          >
             <Image source={require('../assets/AnhBaoGao.png')} style={styles.categoryImage} resizeMode="contain"/>
             <Text style={styles.categoryText}>Rice</Text>
-          </View>
+          </TouchableOpacity>
         </ScrollView>
         
-        {/* Grocery Products */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
+        {/* Phần danh sách thịt - ĐÃ THÊM ID */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={[styles.horizontalScrollContent, { marginBottom: 40 }]}>
           <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhMiengThit.png'),
-              title: "Beef Bone",
-              subTitle: "1kg, Priceg",
-              price: "4.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'meat_1', imagePath: require('../assets/AnhMiengThit.png'), title: "Beef Bone", subTitle: "1kg, Priceg", price: "14.99" }} 
           />
           <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhThitGa.png'),
-              title: "Broiler Chicken",
-              subTitle: "1kg, Priceg",
-              price: "4.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'meat_2', imagePath: require('../assets/AnhThitGa.png'), title: "Broiler Chicken", subTitle: "1kg, Priceg", price: "4.99" }} 
           />
                     <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhBaoGao.png'),
-              title: "Rice Type A",
-              subTitle: "1kg, Priceg",
-              price: "19.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'meat_3', imagePath: require('../assets/AnhMiengThit.png'), title: "Beef Bone", subTitle: "1kg, Priceg", price: "9.99" }} 
           />
                     <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhNguCoc.png'),
-              title: "Quality A1",
-              subTitle: "1kg, Priceg",
-              price: "8.99"
-            }} 
-          />
-                    <ProductCard 
-            navigation={navigation}
-            product={{
-              imagePath: require('../assets/AnhMiengThit.png'),
-              title: "Beef Bone",
-              subTitle: "1kg, Priceg",
-              price: "4.99"
-            }} 
+            navigation={navigation} 
+            product={{ id: 'meat_4', imagePath: require('../assets/AnhThitGa.png'), title: "Broiler Chicken", subTitle: "1kg, Priceg", price: "24.99" }} 
           />
         </ScrollView>
-
       </ScrollView>
 
-      {/* Thanh Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="storefront-outline" size={24} color="#53B175" />
-          <Text style={[styles.navText, { color: '#53B175' }]}>Shop</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}
-        onPress={() => navigation.navigate('Explore')}>
-          <Ionicons name="search-outline" size={24} color="#181725" />
-          <Text style={styles.navText}>Explore</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}
-          onPress={() => navigation.navigate('Cart')}>
-          <Ionicons name="cart-outline" size={24} color="#181725" />
-          <Text style={styles.navText}>Cart</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-  style={styles.navItem} 
-  onPress={() => navigation.navigate('Favourite')} 
->
-  <Ionicons name="heart-outline" size={24} color="#181725" />
-  <Text style={styles.navText}>Favourite</Text>
-</TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="#181725" />
-          <Text style={styles.navText}>Account</Text>
-        </TouchableOpacity>
+      {/* Bottom Navigation với Highlight và khoảng cách an toàn */}
+      <View style={styles.navContainer}>
+        <View style={styles.bottomNav}>
+            {[
+                { name: 'Shop', icon: 'storefront', screen: 'Home' },
+                { name: 'Explore', icon: 'search', screen: 'Explore' },
+                { name: 'Cart', icon: 'cart', screen: 'Cart' },
+                { name: 'Favourite', icon: 'heart', screen: 'Favourite' },
+                { name: 'Account', icon: 'person', screen: 'Account' }
+            ].map((tab) => {
+                const isActive = activeTab === tab.name;
+                return (
+                    <TouchableOpacity 
+                        key={tab.name}
+                        style={styles.navItem} 
+                        onPress={() => {
+                            setActiveTab(tab.name);
+                            if(tab.screen !== 'Home') navigation.navigate(tab.screen);
+                        }}
+                    >
+                        <Ionicons 
+                            name={isActive ? tab.icon : `${tab.icon}-outline`} 
+                            size={24} 
+                            color={isActive ? "#53B175" : "#181725"} 
+                        />
+                        <Text style={[styles.navText, { color: isActive ? "#53B175" : "#181725" }]}>
+                            {tab.name}
+                        </Text>
+                    </TouchableOpacity>
+                );
+            })}
+        </View>
       </View>
-
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-  },
-  scrollContent: {
-    paddingBottom: 100, 
-  },
+  container: { flex: 1, backgroundColor: '#FFF' },
+  // Tăng paddingBottom để nội dung không bị che mất bởi thanh điều hướng nổi
+  scrollContent: { paddingBottom: 120 }, 
+  
   header: {
     alignItems: 'center',
-    marginTop: Platform.OS === 'android' ? 30 : 10,
+    marginTop: Platform.OS === 'android' ? 20 : 10,
     marginBottom: 20,
   },
-  logo: {
-    width: 30,
-    height: 35,
-    marginBottom: 10,
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  locationText: {
-    fontSize: 16,
-    color: '#4C4F4D',
-    fontWeight: '600',
-    marginLeft: 5,
-  },
+  logo: { width: 30, height: 35, marginBottom: 10 },
+  locationContainer: { flexDirection: 'row', alignItems: 'center' },
+  locationText: { fontSize: 16, color: '#4C4F4D', fontWeight: '600', marginLeft: 5 },
+  
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F2F3F2',
     borderRadius: 15,
-    marginHorizontal: 25,
+    marginHorizontal: SCREEN_MARGIN,
     paddingHorizontal: 15,
     height: 50,
     marginBottom: 20,
   },
-  searchIcon: {
-    marginRight: 10,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 15,
-    color: '#181B19',
-    fontWeight: '600',
-  },
+  searchIcon: { marginRight: 10 },
+  searchInput: { flex: 1, fontSize: 15, color: '#181B19', fontWeight: '600' },
+  
   bannerContainer: {
-    marginHorizontal: 25,
-    height: 115,
+    marginHorizontal: SCREEN_MARGIN,
+    height: width * 0.3,
     borderRadius: 15,
     overflow: 'hidden',
-    marginBottom: 20,
+    marginBottom: 25,
   },
-  bannerImage: {
-    width: '100%',
-    height: '100%',
-  },
+  bannerImage: { width: '100%', height: '100%' },
+  
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 25,
+    marginHorizontal: SCREEN_MARGIN,
     marginBottom: 15,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#181725',
-  },
-  seeAllText: {
-    fontSize: 16,
-    color: '#53B175',
-    fontWeight: '600',
-  },
-  horizontalScroll: {
-    paddingLeft: 25,
-    marginBottom: 30,
-  },
+  sectionTitle: { fontSize: 20, fontWeight: 'bold', color: '#181725' },
+  seeAllText: { fontSize: 16, color: '#53B175', fontWeight: '600' },
+  
+  horizontalScrollContent: { paddingLeft: SCREEN_MARGIN, paddingRight: 10 },
+  
   cardContainer: {
-    width: 170,
-    height: 250,
+    width: CARD_WIDTH,
+    minHeight: 220,
     borderWidth: 1,
     borderColor: '#E2E2E2',
     borderRadius: 18,
-    padding: 15,
+    padding: 12,
     marginRight: 15,
     backgroundColor: '#FFF',
-  },
-  cardImage: {
-    width: '100%',
-    height: 90,
-    marginBottom: 20,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#181725',
-    marginBottom: 5,
-  },
-  cardSubtitle: {
-    fontSize: 14,
-    color: '#7C7C7C',
-    marginBottom: 20,
-  },
-  cardFooter: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 'auto',
   },
-  cardPrice: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#181725',
-  },
+  imageWrapper: { alignItems: 'center', marginVertical: 5 },
+  cardImage: { width: '85%', height: 80 },
+  cardTitle: { fontSize: 16, fontWeight: 'bold', color: '#181725', marginTop: 10 },
+  cardSubtitle: { fontSize: 14, color: '#7C7C7C', marginBottom: 12 },
+  cardFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  cardPrice: { fontSize: 18, fontWeight: 'bold', color: '#181725' },
   addButton: {
     backgroundColor: '#53B175',
-    width: 45,
-    height: 45,
-    borderRadius: 17,
+    width: 42,
+    height: 42,
+    borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  categoryScroll: {
-    paddingLeft: 25,
-    marginBottom: 20,
-  },
+
+  categoryScrollContent: { paddingLeft: SCREEN_MARGIN, paddingRight: 10, marginBottom: 20 },
   categoryCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
     borderRadius: 18,
     marginRight: 15,
-    width: 250,
+    width: width * 0.6,
+    borderWidth: 2,
+    borderColor: 'transparent', // Giữ viền trong suốt khi không active
   },
-  categoryImage: {
-    width: 70,
-    height: 70,
-    marginRight: 15,
+  categoryActive: {
+    borderColor: '#53B175', // Viền xanh khi được chọn
+    borderWidth: 2,
   },
-  categoryText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#3E423F',
-  },
-  bottomNav: {
+  categoryImage: { width: 60, height: 60, marginRight: 12 },
+  categoryText: { fontSize: 18, fontWeight: '600', color: '#3E423F' },
+
+  // CẢI TIẾN BOTTOM NAV ĐỂ KHÔNG BỊ VƯỚNG CHÂN:
+  navContainer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    height: 80,
+    backgroundColor: 'transparent',
+  },
+  bottomNav: {
     backgroundColor: '#FFF',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    
+    // Tạo khoảng đệm dưới chân cho máy cũ và máy mới
+    height: Platform.OS === 'ios' ? 95 : 80,
+    paddingBottom: Platform.OS === 'ios' ? 25 : 15, 
+    
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     borderTopWidth: 1,
-    borderTopColor: '#E2E2E2',
-    paddingBottom: Platform.OS === 'ios' ? 20 : 0, 
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    elevation: 10, 
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
+    borderTopColor: '#F2F3F2',
+    
+    // Bóng đổ chuyên nghiệp
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.07,
+    shadowRadius: 10,
+    elevation: 20,
   },
-  navItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  navText: {
-    fontSize: 12,
-    fontWeight: '600',
-    marginTop: 5,
-    color: '#181725',
-  }
+  navItem: { alignItems: 'center', flex: 1, paddingTop: 10 },
+  navText: { fontSize: 9, fontWeight: '600', marginTop: 4 }
 });
 
 export default HomeScreen;

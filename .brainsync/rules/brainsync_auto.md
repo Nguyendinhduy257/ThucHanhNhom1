@@ -1,7 +1,7 @@
 
 
 # Project Memory — ThucHanhNhom1
-> 639 notes | Score threshold: >40
+> 1015 notes | Score threshold: >40
 
 ## Safety — Never Run Destructive Commands
 
@@ -20,44 +20,41 @@
 
 ## 📝 NOTE: 1 uncommitted file(s) in working tree.\n\n## Important Warnings
 
-- **⚠️ GOTCHA: problem-fix in brainsync_auto.md** — - > 589 notes | Score threshold: >40
-+ > 594 notes | Score threshold: 
-- **gotcha in shared-context.json** — -     }
-+     },
--   ]
-+     {
-- }
-+       "id": "3b23f4f0bbd45d31",
-+
-- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 547 notes | Score threshold: >40
-+ > 553 notes | Score threshold: 
-- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 538 notes | Score threshold: >40
-+ > 547 notes | Score threshold: 
-- **⚠️ GOTCHA: Replaced auth Score** — - > 529 notes | Score threshold: >40
-+ > 531 notes | Score threshold: 
-- **⚠️ GOTCHA: problem-fix in brainsync_auto.md** — - > 521 notes | Score threshold: >40
-+ > 523 notes | Score threshold: 
+- **⚠️ GOTCHA: Optimized Score** — - > 1010 notes | Score threshold: >40
++ > 1012 notes | Score threshold
+- **⚠️ GOTCHA: Optimized Score** — - > 1006 notes | Score threshold: >40
++ > 1010 notes | Score threshold
+- **⚠️ GOTCHA: Optimized GOTCHA** — - - ⚠️ GOTCHA: problem-fix in agent-rules.md
++ - ⚠️ GOTCHA: Optimized 
+- **⚠️ GOTCHA: Optimized Score** — - > 994 notes | Score threshold: >40
++ > 1006 notes | Score threshold:
+- **⚠️ GOTCHA: Optimized Score** — - > 988 notes | Score threshold: >40
++ > 994 notes | Score threshold: 
+- **⚠️ GOTCHA: problem-fix in agent-rules.md** — - - Fixed null crash in React — improves module reusability
++ - Fixed 
 
 ## Project Standards
 
-- what-changed in HomeScreen.js — confirmed 15x
-- what-changed in shared-context.json — confirmed 9x
-- decision in HomeScreen.js — confirmed 3x
-- problem-fix in agent-rules.md — confirmed 6x
-- what-changed in shared-context.json — confirmed 4x
-- Optimized GOTCHA — confirmed 3x
-- Patched security issue CyCiFWxICcJ — confirmed 3x
-- Refactored View logic — confirmed 3x
+- what-changed in FavouriteContext.js — confirmed 3x
+- what-changed in shared-context.json — confirmed 7x
+- 🟢 Edited App.js (6 changes, 4min) — confirmed 3x
+- Replaced dependency FavouriteContext — confirmed 4x
+- 🟢 Edited screens/FavouriteScreen.js (28 changes, 5min) — confirmed 3x
+- problem-fix in agent-rules.md — confirmed 4x
+- what-changed in FavouriteScreen.js — confirmed 3x
+- what-changed in ProductDetailScreen.js — confirmed 3x
 
 ## Known Fixes
 
 - ❌ - - **Fixed null crash in Platform — prevents null/undefined runtime crashes — confirmed 7x** → ✅ problem-fix in brainsync_auto.md
 - ❌ - - Fixed null crash in SafeAreaView — improves module reusability → ✅ problem-fix in agent-rules.md
-- ❌ - - Fixed null crash in ProductDetailScreen — prevents null/undefined runtime cra... → ✅ problem-fix in agent-rules.md
+- ❌ - - Fixed null crash in View — prevents null/undefined runtime crashes → ✅ problem-fix in agent-rules.md
+- ❌ - - Fixed null crash in Chuy — prevents null/undefined runtime crashes → ✅ problem-fix in agent-rules.md
+- ❌ - - Fixed null crash in React — improves module reusability → ✅ problem-fix in agent-rules.md
 
 ## Recent Decisions
 
-- decision in HomeScreen.js
+- Optimized Score — parallelizes async operations for speed
 - Optimized Score — parallelizes async operations for speed
 - Optimized Score — parallelizes async operations for speed
 - Optimized Score — parallelizes async operations for speed
@@ -66,7 +63,7 @@
 
 - Always: what-changed in brainsync_auto.md — confirmed 4x (seen 2x)
 - Always: Optimized Score — parallelizes async operations for speed — confirmed 4x (seen 2x)
-- Decision: Optimized Score — parallelizes async operations for speed (seen 2x)
+- Avoid: ⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed (seen 3x)
 - Agent generates new migration for every change (squash related changes)
 - Agent installs packages without checking if already installed
 

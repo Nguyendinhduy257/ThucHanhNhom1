@@ -254,7 +254,7 @@ searchInput: {
     height: '100%',
   },
   navText: {
-    fontSize: 12, 
+    fontSize: 9, 
     fontWeight: '600',
     marginTop: 5,
     color: '#181725',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { 
   View, 
   Text, 
@@ -11,68 +11,43 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// --- DỮ LIỆU MẪU YÊU THÍCH ---
-const favouriteData = [
-  { 
-    id: '1', 
-    name: 'Sprite Can', 
-    size: '325ml, Price', 
-    price: 1.50, 
-    image: require('../assets/sprite.png') // Thay bằng ảnh thực tế của bạn
-  },
-  { 
-    id: '2', 
-    name: 'Diet Coke', 
-    size: '355ml, Price', 
-    price: 1.99, 
-    image: require('../assets/Coke1.png') 
-  },
-  { 
-    id: '3', 
-    name: 'Apple & Grape Juice', 
-    size: '2L, Price', 
-    price: 15.50, 
-    image: require('../assets/appleJuice.png') 
-  },
-  { 
-    id: '4', 
-    name: 'Coca Cola Can', 
-    size: '325ml, Price', 
-    price: 4.99, 
-    image: require('../assets/CocacolaCan.png') 
-  },
-  { 
-    id: '5', 
-    name: 'Pepsi Can', 
-    size: '330ml, Price', 
-    price: 4.99, 
-    image: require('../assets/pepsiCan.png') 
-  },
-];
+// --- IMPORT CONTEXT ---
+// LƯU Ý: Đổi '../path/to/FavouriteContext' thành đường dẫn thực tế file của bạn
+import { FavouriteContext } from './FavouriteContext';
 
 const FavouriteScreen = ({ navigation }) => {
+  // Lấy danh sách yêu thích từ Context thay vì dùng dữ liệu cứng
+  const { favourites } = useContext(FavouriteContext);
 
   // --- COMPONENT: Từng Item Yêu Thích ---
-  const renderFavouriteItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
-      {/* Cột Trái: Ảnh */}
-      <View style={styles.imageContainer}>
-        <Image source={item.image} style={styles.productImage} resizeMode="contain" />
-      </View>
+  const renderFavouriteItem = ({ item }) => {
+    // Xử lý linh hoạt các trường hợp tên biến (tùy thuộc vào product object của bạn)
+    const title = item.title || item.name || 'Sản phẩm';
+    const subTitle = item.subTitle || item.size || 'Kích thước';
+    const price = parseFloat(item.price) || 0;
+    const imageSource = item.imagePath || item.image;
 
-      {/* Cột Giữa: Thông tin */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productSize}>{item.size}</Text>
-      </View>
+    return (
+      <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
+        {/* Cột Trái: Ảnh */}
+        <View style={styles.imageContainer}>
+          <Image source={imageSource} style={styles.productImage} resizeMode="contain" />
+        </View>
 
-      {/* Cột Phải: Giá và Nút mũi tên */}
-      <View style={styles.priceContainer}>
-        <Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
-        <Ionicons name="chevron-forward" size={24} color="#181725" style={{ marginLeft: 10 }} />
-      </View>
-    </TouchableOpacity>
-  );
+        {/* Cột Giữa: Thông tin */}
+        <View style={styles.infoContainer}>
+          <Text style={styles.productName}>{title}</Text>
+          <Text style={styles.productSize}>{subTitle}</Text>
+        </View>
+
+        {/* Cột Phải: Giá và Nút mũi tên */}
+        <View style={styles.priceContainer}>
+          <Text style={styles.productPrice}>${price.toFixed(2)}</Text>
+          <Ionicons name="chevron-forward" size={24} color="#181725" style={{ marginLeft: 10 }} />
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -80,17 +55,25 @@ const FavouriteScreen = ({ navigation }) => {
       {/* --- HEADER --- */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Favourite</Text>
+        <Text style={{color: 'red'}}>Tổng số món đang tim: {favourites.length}</Text>
       </View>
 
-      {/* --- DANH SÁCH YÊU THÍCH --- */}
-      <FlatList
-        data={favouriteData}
-        renderItem={renderFavouriteItem}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listContent}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-      />
+      {/* --- DANH SÁCH YÊU THÍCH HOẶC THÔNG BÁO TRỐNG --- */}
+      {favourites.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Ionicons name="heart-dislike-outline" size={80} color="#E2E2E2" />
+          <Text style={styles.emptyText}>Chưa có sản phẩm yêu thích nào</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={favourites}
+          renderItem={renderFavouriteItem}
+          keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContent}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+        />
+      )}
 
       {/* --- NÚT ADD ALL TO CART --- */}
       <View style={styles.actionSection}>
@@ -207,7 +190,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     backgroundColor: '#FFF',
     borderTopWidth: 1,
-    borderTopColor: '#FFF', // Ẩn viền trên hoặc đổi màu nếu muốn
+    borderTopColor: '#FFF', 
   },
   addAllButton: {
     backgroundColor: '#53B175',
@@ -217,7 +200,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   addAllText: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#FFF',
   },
@@ -239,11 +222,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   navText: {
-    fontSize: 12,
+    fontSize: 9,
     color: '#181725',
     marginTop: 5,
     fontWeight: '600',
   },
+
+  // --- STYLE CHO MÀN HÌNH TRỐNG (Mới thêm) ---
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#7C7C7C',
+    marginTop: 15,
+    fontWeight: '500',
+  }
 });
 
 export default FavouriteScreen;

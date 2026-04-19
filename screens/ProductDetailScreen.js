@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  Image, 
-  TouchableOpacity, 
-  SafeAreaView, 
+import React, { useState, useContext } from 'react';
+import { FavouriteContext } from './FavouriteContext';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
   ScrollView,
   Platform,
   Alert
@@ -13,27 +14,51 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 const ProductDetailScreen = ({ route, navigation }) => {
-  // Nhận dữ liệu sản phẩm được truyền từ HomeScreen hoặc danh mục
-  // Sử dụng fallback rỗng {} đề phòng trường hợp params bị undefined
-  const { product = {} } = route?.params || {}; 
-  
+  const { product = {} } = route?.params || {};
   const [quantity, setQuantity] = useState(1);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isDetailExpanded, setIsDetailExpanded] = useState(true);
 
-  // --- HÀM XỬ LÝ THÊM VÀO GIỎ HÀNG (GIẢ LẬP) ---
+  // Lấy dữ liệu từ Context
+  const { favourites, toggleFavourite } = useContext(FavouriteContext);
+
+  // Kiểm tra xem sản phẩm hiện tại đã được tim hay chưa
+ // Đảm bảo chỉ báo đỏ (isFavorite = true) khi ID hoặc Name thực sự khớp và TỒN TẠI
+  const isFavorite = favourites.some(item => 
+    (item.id && product.id && item.id === product.id) || 
+    (item.name && product.name && item.name === product.name) ||
+    (item.title && product.title && item.title === product.title)
+  );
+
+  // 3. TÍNH TOÁN GIÁ (Nằm trong Component để truy cập được biến 'product')
+  const basePrice = parseFloat(product.price) || 0;
+  const totalPrice = (basePrice * quantity).toFixed(2);
+
+  // --- HÀM XỬ LÝ THÊM VÀO GIỎ HÀNG ---
   const handleAddToBasket = () => {
-    // Tạm thời dùng Alert, sau này thay bằng logic giỏ hàng (Redux/Context API)
     Alert.alert(
       "Giỏ hàng",
-      `Đã thêm ${quantity} x ${product.title || product.name || 'Sản phẩm'} vào giỏ hàng!`,
+      `Đã thêm ${quantity} x ${product.title || 'Sản phẩm'} vào giỏ hàng!\nTổng thanh toán: $${totalPrice}`,
       [{ text: "OK", style: "cancel" }]
     );
   };
 
+  // Nếu không có sản phẩm (bị lỗi truyền tham số), hiển thị thông báo an toàn
+  if (!product.title && !product.name) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text>Không tìm thấy thông tin sản phẩm.</Text>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: 20 }}>
+            <Text style={{ color: '#53B175' }}>Quay lại</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header: Nút Back và Share */}
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="chevron-back" size={28} color="#181725" />
@@ -44,31 +69,24 @@ const ProductDetailScreen = ({ route, navigation }) => {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        
-        {/* Ảnh sản phẩm (Động theo sản phẩm được chọn) */}
+
+        {/* Ảnh sản phẩm */}
         <View style={styles.imageContainer}>
-          <Image 
-            source={product.imagePath || product.image} 
-            style={styles.productImage} 
-            resizeMode="contain" 
+          <Image
+            source={product.imagePath || product.image}
+            style={styles.productImage}
+            resizeMode="contain"
           />
-          {/* Dấu chấm giả lập Carousel */}
-          <View style={styles.pagination}>
-            <View style={[styles.dot, styles.activeDot]} />
-            <View style={styles.dot} />
-            <View style={styles.dot} />
-          </View>
         </View>
 
         <View style={styles.contentContainer}>
-          {/* Tên sản phẩm và nút thả tim */}
           <View style={styles.titleRow}>
             <Text style={styles.title}>{product.title || product.name}</Text>
-            <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
-              <Ionicons 
-                name={isFavorite ? "heart" : "heart-outline"} 
-                size={28} 
-                color={isFavorite ? "#FF4B4B" : "#7C7C7C"} 
+            <TouchableOpacity onPress={() => toggleFavourite(product)}>
+              <Ionicons
+                name={isFavorite ? "heart" : "heart-outline"}
+                size={28}
+                color={isFavorite ? "#FF4B4B" : "#7C7C7C"}
               />
             </TouchableOpacity>
           </View>
@@ -87,64 +105,28 @@ const ProductDetailScreen = ({ route, navigation }) => {
                 <Ionicons name="add" size={24} color="#53B175" />
               </TouchableOpacity>
             </View>
-            <Text style={styles.price}>${product.price}</Text>
+
+            {/* Giá cập nhật tự động */}
+            <Text style={styles.price}>${totalPrice}</Text>
           </View>
 
-          {/* Đường kẻ ngang */}
+          {/* Các phần còn lại giữ nguyên... */}
           <View style={styles.divider} />
-
-          {/* Product Detail Section */}
-          <TouchableOpacity 
-            style={styles.sectionHeader} 
-            onPress={() => setIsDetailExpanded(!isDetailExpanded)}
-          >
+          <TouchableOpacity style={styles.sectionHeader} onPress={() => setIsDetailExpanded(!isDetailExpanded)}>
             <Text style={styles.sectionTitle}>Product Detail</Text>
             <Ionicons name={isDetailExpanded ? "chevron-down" : "chevron-forward"} size={24} color="#181725" />
           </TouchableOpacity>
           {isDetailExpanded && (
             <Text style={styles.description}>
-              {product.description || "Apples Are Nutritious. Apples May Be Good For Weight Loss. Apples May Be Good For Your Heart. As Part Of A Healthful And Varied Diet."}
+              {product.description || "Mô tả sản phẩm đang được cập nhật."}
             </Text>
           )}
-
-          <View style={styles.divider} />
-
-          {/* Nutritions Section */}
-          <TouchableOpacity style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Nutritions</Text>
-            <View style={styles.rowCenter}>
-              <View style={styles.badge}>
-                <Text style={styles.badgeText}>100gr</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={24} color="#181725" />
-            </View>
-          </TouchableOpacity>
-
-          <View style={styles.divider} />
-
-          {/* Review Section */}
-          <TouchableOpacity style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Review</Text>
-            <View style={styles.rowCenter}>
-              <View style={styles.starsContainer}>
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Ionicons key={star} name="star" size={16} color="#F3603F" style={{marginHorizontal: 1}}/>
-                ))}
-              </View>
-              <Ionicons name="chevron-forward" size={24} color="#181725" />
-            </View>
-          </TouchableOpacity>
-
         </View>
       </ScrollView>
 
-      {/* Nút Add To Basket cố định ở dưới */}
+      {/* Button */}
       <View style={styles.bottomContainer}>
-        <TouchableOpacity 
-          style={styles.addButton}
-          activeOpacity={0.8}
-          onPress={handleAddToBasket} // <-- Gắn sự kiện vào đây
-        >
+        <TouchableOpacity style={styles.addButton} activeOpacity={0.8} onPress={handleAddToBasket}>
           <Text style={styles.addButtonText}>Add To Basket</Text>
         </TouchableOpacity>
       </View>

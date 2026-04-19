@@ -150,6 +150,7 @@ const CartScreen = ({ navigation }) => {
             <View style={styles.checkoutSection}>
                 <TouchableOpacity style={styles.checkoutButton} activeOpacity={0.8}>
                     <Text style={styles.checkoutText}>Go to Checkout</Text>
+                    
                     <View style={styles.totalPriceBadge}>
                         <Text style={styles.totalPriceText}>${getTotalPrice()}</Text>
                     </View>
@@ -309,13 +310,13 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     checkoutText: {
-        fontSize: 18,
+        fontSize: 13,
         fontWeight: 'bold',
         color: '#FFF',
     },
     totalPriceBadge: {
-        position: 'absolute',
-        right: 20,
+        position: 'relative',
+        right: -20,
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
         paddingHorizontal: 10,
         paddingVertical: 5,
@@ -344,7 +345,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     navText: {
-        fontSize: 12,
+        fontSize: 9,
         color: '#181725',
         marginTop: 5,
         fontWeight: '600',
