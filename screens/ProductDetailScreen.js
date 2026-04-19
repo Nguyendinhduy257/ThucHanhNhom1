@@ -245,6 +245,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#181725',
+    marginTop: 20,
+    marginBottom: 10,
   },
   description: {
     fontSize: 13,
@@ -252,6 +254,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     marginTop: 10,
     marginBottom: 5,
+    letterSpacing: 0.5,    // Khoảng cách chữ giãn ra 1 chút
   },
   rowCenter: {
     flexDirection: 'row',

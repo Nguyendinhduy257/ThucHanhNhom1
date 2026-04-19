@@ -1,7 +1,7 @@
 
 
 # Project Memory — ThucHanhNhom1
-> 1015 notes | Score threshold: >40
+> 1148 notes | Score threshold: >40
 
 ## Safety — Never Run Destructive Commands
 
@@ -20,37 +20,47 @@
 
 ## 📝 NOTE: 1 uncommitted file(s) in working tree.\n\n## Important Warnings
 
-- **⚠️ GOTCHA: Optimized Score** — - > 1010 notes | Score threshold: >40
-+ > 1012 notes | Score threshold
-- **⚠️ GOTCHA: Optimized Score** — - > 1006 notes | Score threshold: >40
-+ > 1010 notes | Score threshold
-- **⚠️ GOTCHA: Optimized GOTCHA** — - - ⚠️ GOTCHA: problem-fix in agent-rules.md
-+ - ⚠️ GOTCHA: Optimized 
-- **⚠️ GOTCHA: Optimized Score** — - > 994 notes | Score threshold: >40
-+ > 1006 notes | Score threshold:
-- **⚠️ GOTCHA: Optimized Score** — - > 988 notes | Score threshold: >40
-+ > 994 notes | Score threshold: 
-- **⚠️ GOTCHA: problem-fix in agent-rules.md** — - - Fixed null crash in React — improves module reusability
-+ - Fixed 
+- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1114 notes | Score threshold: >40
++ > 1116 notes | Score threshold
+- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1112 notes | Score threshold: >40
++ > 1114 notes | Score threshold
+- **gotcha in shared-context.json** — -     }
++     },
+-   ]
++     {
+- }
++       "id": "639a51c9cde202d1",
++
+- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1094 notes | Score threshold: >40
++ > 1099 notes | Score threshold
+- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1085 notes | Score threshold: >40
++ > 1094 notes | Score threshold
+- **gotcha in shared-context.json** — -     }
++     },
+-   ]
++     {
+- }
++       "id": "3039ca477cc317aa",
++
 
 ## Project Standards
 
-- what-changed in FavouriteContext.js — confirmed 3x
-- what-changed in shared-context.json — confirmed 7x
-- 🟢 Edited App.js (6 changes, 4min) — confirmed 3x
-- Replaced dependency FavouriteContext — confirmed 4x
-- 🟢 Edited screens/FavouriteScreen.js (28 changes, 5min) — confirmed 3x
-- problem-fix in agent-rules.md — confirmed 4x
-- what-changed in FavouriteScreen.js — confirmed 3x
-- what-changed in ProductDetailScreen.js — confirmed 3x
+- what-changed in shared-context.json — confirmed 5x
+- Optimized Score — confirmed 5x
+- Optimized GOTCHA — confirmed 3x
+- Patched security issue JOzwFSYycUpWUmuo — confirmed 3x
+- what-changed in shared-context.json — confirmed 3x
+- what-changed in shared-context.json — confirmed 3x
+- Replaced dependency DairyAndEgg — confirmed 13x
+- Replaced dependency Noodle — confirmed 3x
 
 ## Known Fixes
 
 - ❌ - - **Fixed null crash in Platform — prevents null/undefined runtime crashes — confirmed 7x** → ✅ problem-fix in brainsync_auto.md
 - ❌ - - Fixed null crash in SafeAreaView — improves module reusability → ✅ problem-fix in agent-rules.md
 - ❌ - - Fixed null crash in View — prevents null/undefined runtime crashes → ✅ problem-fix in agent-rules.md
+- ❌ - - Fixed null crash in Name — improves module reusability → ✅ problem-fix in agent-rules.md
 - ❌ - - Fixed null crash in Chuy — prevents null/undefined runtime crashes → ✅ problem-fix in agent-rules.md
-- ❌ - - Fixed null crash in React — improves module reusability → ✅ problem-fix in agent-rules.md
 
 ## Recent Decisions
 
