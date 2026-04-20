@@ -9,20 +9,25 @@ import {
   SafeAreaView,
   ScrollView,
   Platform,
-  Alert
+  Alert,
+  Modal // Đã bổ sung import Modal
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProductDetailScreen = ({ route, navigation }) => {
   const { product = {} } = route?.params || {};
   const [quantity, setQuantity] = useState(1);
   const [isDetailExpanded, setIsDetailExpanded] = useState(true);
 
+  // ĐÃ SỬA: Đưa state này vào BÊN TRONG component
+  const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+
   // Lấy dữ liệu từ Context
   const { favourites, toggleFavourite } = useContext(FavouriteContext);
 
   // Kiểm tra xem sản phẩm hiện tại đã được tim hay chưa
- // Đảm bảo chỉ báo đỏ (isFavorite = true) khi ID hoặc Name thực sự khớp và TỒN TẠI
+  // Đảm bảo chỉ báo đỏ (isFavorite = true) khi ID hoặc Name thực sự khớp và TỒN TẠI
   const isFavorite = favourites.some(item => 
     (item.id && product.id && item.id === product.id) || 
     (item.name && product.name && item.name === product.name) ||
@@ -33,13 +38,37 @@ const ProductDetailScreen = ({ route, navigation }) => {
   const basePrice = parseFloat(product.price) || 0;
   const totalPrice = (basePrice * quantity).toFixed(2);
 
-  // --- HÀM XỬ LÝ THÊM VÀO GIỎ HÀNG ---
-  const handleAddToBasket = () => {
-    Alert.alert(
-      "Giỏ hàng",
-      `Đã thêm ${quantity} x ${product.title || 'Sản phẩm'} vào giỏ hàng!\nTổng thanh toán: $${totalPrice}`,
-      [{ text: "OK", style: "cancel" }]
-    );
+  // --- HÀM XỬ LÝ THÊM VÀO GIỎ HÀNG BẰNG ASYNCSTORAGE ---
+  const handleAddToBasket = async () => {
+    try {
+        const existingCart = await AsyncStorage.getItem('@cart_items');
+        let cart = existingCart ? JSON.parse(existingCart) : [];
+        
+        const productId = product.id;
+        const existingIndex = cart.findIndex(item => item.id === productId);
+        
+        if (existingIndex > -1) {
+            cart[existingIndex].quantity += quantity;
+        } else {
+            cart.push({
+                id: productId,
+                name: product.title || product.name,
+                size: product.subTitle || product.size || '',
+                price: parseFloat(product.price) || 0,
+                quantity: quantity,
+                image: product.imagePath || product.image 
+            });
+        }
+        
+        await AsyncStorage.setItem('@cart_items', JSON.stringify(cart));
+        
+        // 4. HIỂN THỊ MODAL
+        setSuccessModalVisible(true);
+
+    } catch (error) {
+        console.error("Lỗi khi thêm vào giỏ hàng:", error);
+        Alert.alert("Lỗi", "Không thể thêm sản phẩm vào giỏ hàng lúc này.");
+    }
   };
 
   // Nếu không có sản phẩm (bị lỗi truyền tham số), hiển thị thông báo an toàn
@@ -130,6 +159,45 @@ const ProductDetailScreen = ({ route, navigation }) => {
           <Text style={styles.addButtonText}>Add To Basket</Text>
         </TouchableOpacity>
       </View>
+      
+      {/* --- MODAL THÔNG BÁO THÀNH CÔNG --- */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isSuccessModalVisible}
+        onRequestClose={() => setSuccessModalVisible(false)} // Dùng cho nút Back trên Android
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            {/* Icon check xanh */}
+            <Ionicons name="checkmark-circle" size={60} color="#53B175" style={{ marginBottom: 10 }} />
+            
+            <Text style={styles.modalTitle}>Thành công!</Text>
+            <Text style={styles.modalMessage}>Sản phẩm đã được thêm vào giỏ hàng.</Text>
+            
+            <View style={styles.modalButtonContainer}>
+              {/* Nút ở lại */}
+              <TouchableOpacity 
+                style={[styles.actionButton, styles.cancelButton]} 
+                onPress={() => setSuccessModalVisible(false)}
+              >
+                <Text style={styles.cancelButtonText}>Tiếp tục mua</Text>
+              </TouchableOpacity>
+
+              {/* Nút tới Giỏ hàng */}
+              <TouchableOpacity 
+                style={[styles.actionButton, styles.cartButton]} 
+                onPress={() => {
+                  setSuccessModalVisible(false); // Tắt Modal trước
+                  navigation.navigate('Cart');   // Sang trang Cart
+                }}
+              >
+                <Text style={styles.cartButtonText}>Xem giỏ hàng</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -254,7 +322,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     marginTop: 10,
     marginBottom: 5,
-    letterSpacing: 0.5,    // Khoảng cách chữ giãn ra 1 chút
+    letterSpacing: 0.5,    
   },
   rowCenter: {
     flexDirection: 'row',
@@ -291,6 +359,67 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: '#FFF',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  // --- STYLES CHO MODAL THÔNG BÁO ---
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '85%',
+    backgroundColor: '#FFF',
+    borderRadius: 20,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5, 
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#181725',
+    marginBottom: 10,
+  },
+  modalMessage: {
+    fontSize: 15,
+    color: '#7C7C7C',
+    textAlign: 'center',
+    marginBottom: 25,
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  actionButton: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cancelButton: {
+    backgroundColor: '#F2F3F2',
+    marginRight: 10,
+  },
+  cancelButtonText: {
+    color: '#181725',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  cartButton: {
+    backgroundColor: '#53B175',
+    marginLeft: 10,
+  },
+  cartButtonText: {
+    color: '#FFF',
+    fontSize: 15,
     fontWeight: 'bold',
   },
 });

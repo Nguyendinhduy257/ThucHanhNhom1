@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { storeUserToken } from './storageHelper';
 
 const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -30,7 +31,7 @@ const SignUpScreen = ({ navigation }) => {
   // Trạng thái để hiện dấu tích xanh (khi email đúng định dạng và không bị rỗng)
   const isEmailValid = emailRegex.test(email);
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     let isValid = true;
 
     // Reset lỗi mỗi lần bấm nút
@@ -64,11 +65,11 @@ const SignUpScreen = ({ navigation }) => {
 
     // Nếu tất cả hợp lệ thì cho phép qua
     if (isValid) {
-      console.log('Đăng ký thành công với:', { username, email, password });
-      // TODO: Gọi API đăng ký tại đây
-      
-      // Đăng ký xong có thể chuyển về Home hoặc màn hình đăng nhập
-       navigation.navigate('Home');
+        await storeUserToken("fake-token"); // await cần async ở trên
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+        });
     }
   };
 

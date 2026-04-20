@@ -1,7 +1,7 @@
 
 
 # Project Memory — ThucHanhNhom1
-> 1148 notes | Score threshold: >40
+> 1829 notes | Score threshold: >40
 
 ## Safety — Never Run Destructive Commands
 
@@ -20,54 +20,43 @@
 
 ## 📝 NOTE: 1 uncommitted file(s) in working tree.\n\n## Important Warnings
 
-- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1114 notes | Score threshold: >40
-+ > 1116 notes | Score threshold
-- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1112 notes | Score threshold: >40
-+ > 1114 notes | Score threshold
-- **gotcha in shared-context.json** — -     }
-+     },
--   ]
-+     {
-- }
-+       "id": "639a51c9cde202d1",
-+
-- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1094 notes | Score threshold: >40
-+ > 1099 notes | Score threshold
-- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1085 notes | Score threshold: >40
-+ > 1094 notes | Score threshold
-- **gotcha in shared-context.json** — -     }
-+     },
--   ]
-+     {
-- }
-+       "id": "3039ca477cc317aa",
-+
+- **⚠️ GOTCHA: Optimized GOTCHA — parallelizes async operations for speed** — - - **⚠️ GOTCHA: Fixed null crash in Date — improves module reusabilit
+- **⚠️ GOTCHA: Optimized Score** — - > 1807 notes | Score threshold: >40
++ > 1813 notes | Score threshold
+- **⚠️ GOTCHA: Optimized Score** — - > 1805 notes | Score threshold: >40
++ > 1807 notes | Score threshold
+- **⚠️ GOTCHA: Optimized Score** — - > 1804 notes | Score threshold: >40
++ > 1805 notes | Score threshold
+- **⚠️ GOTCHA: Optimized Score — parallelizes async operations for speed** — - > 1801 notes | Score threshold: >40
++ > 1804 notes | Score threshold
+- **⚠️ GOTCHA: Optimized Score** — - > 1800 notes | Score threshold: >40
++ > 1801 notes | Score threshold
 
 ## Project Standards
 
-- what-changed in shared-context.json — confirmed 5x
-- Optimized Score — confirmed 5x
-- Optimized GOTCHA — confirmed 3x
-- Patched security issue JOzwFSYycUpWUmuo — confirmed 3x
-- what-changed in shared-context.json — confirmed 3x
-- what-changed in shared-context.json — confirmed 3x
-- Replaced dependency DairyAndEgg — confirmed 13x
-- Replaced dependency Noodle — confirmed 3x
+- 🟢 Edited screens/ProfileScreen.js (8 changes, 1min) — confirmed 3x
+- what-changed in ProfileScreen.js — confirmed 3x
+- discovery in shared-context.json — confirmed 4x
+- what-changed in OrderScreen.js — confirmed 3x
+- what-changed in shared-context.json — confirmed 14x
+- what-changed in App.js — confirmed 5x
+- Replaced auth React — improves module reusability — confirmed 4x
+- Optimized GOTCHA — confirmed 4x
 
 ## Known Fixes
 
+- ❌ - - **⚠️ GOTCHA: Fixed null crash in Date — improves module reusability** — -     const handleChecko → ✅ problem-fix in brainsync_auto.md
 - ❌ - - **Fixed null crash in Platform — prevents null/undefined runtime crashes — confirmed 7x** → ✅ problem-fix in brainsync_auto.md
+- ❌ 📌 IDE AST Context: Modified symbols likely include [ErrorModal, styles, default] → ✅ problem-fix in ErrorModal.js
 - ❌ - - Fixed null crash in SafeAreaView — improves module reusability → ✅ problem-fix in agent-rules.md
 - ❌ - - Fixed null crash in View — prevents null/undefined runtime crashes → ✅ problem-fix in agent-rules.md
-- ❌ - - Fixed null crash in Name — improves module reusability → ✅ problem-fix in agent-rules.md
-- ❌ - - Fixed null crash in Chuy — prevents null/undefined runtime crashes → ✅ problem-fix in agent-rules.md
 
 ## Recent Decisions
 
 - Optimized Score — parallelizes async operations for speed
 - Optimized Score — parallelizes async operations for speed
 - Optimized Score — parallelizes async operations for speed
-- Optimized Score — parallelizes async operations for speed
+- decision in ProductDetailScreen.js
 
 ## Learned Patterns
 

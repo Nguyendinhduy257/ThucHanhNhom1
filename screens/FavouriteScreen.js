@@ -109,7 +109,7 @@ const FavouriteScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* Nút Account */}
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={()=>navigation.navigate('Profile')}>
           <Ionicons name="person-outline" size={24} color="#181725" />
           <Text style={styles.navText}>Account</Text>
         </TouchableOpacity>

@@ -218,7 +218,7 @@ const HomeScreen = ({ navigation }) => {
                 { name: 'Explore', icon: 'search', screen: 'Explore' },
                 { name: 'Cart', icon: 'cart', screen: 'Cart' },
                 { name: 'Favourite', icon: 'heart', screen: 'Favourite' },
-                { name: 'Account', icon: 'person', screen: 'Account' }
+                { name: 'Account', icon: 'person', screen: 'Profile' }
             ].map((tab) => {
                 const isActive = activeTab === tab.name;
                 return (

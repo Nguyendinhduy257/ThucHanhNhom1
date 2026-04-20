@@ -80,7 +80,12 @@ const ExploreScreen = ({ navigation }) => {
           navigation.navigate('Beverages'); // Mở trang Beverages
         } else if (item.name === 'Dairy & Eggs') {
           navigation.navigate('DairyEggs'); // Mở trang Dairy & Eggs
-        } else {
+
+        }
+        else if(item.name ==='Accounts') {
+          navigation.navigate('Profile'); // Mở trang Profile
+        }
+        else {
           console.log(`Chưa có màn hình cho ${item.name}`);
         }
       }}
@@ -147,7 +152,7 @@ const ExploreScreen = ({ navigation }) => {
   <Text style={styles.navText}>Favourite</Text>
 </TouchableOpacity>
         
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={()=>navigation.navigate('Profile')}>
           <Ionicons name="person-outline" size={24} color="#181725" />
           <Text style={styles.navText}>Account</Text>
         </TouchableOpacity>

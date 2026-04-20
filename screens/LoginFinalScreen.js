@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { storeUserToken } from './storageHelper';
 
 const LoginFinalScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -23,7 +24,7 @@ const LoginFinalScreen = ({ navigation }) => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         let isValid = true;
 
         // Reset lỗi mỗi lần bấm nút
@@ -53,13 +54,19 @@ const LoginFinalScreen = ({ navigation }) => {
         }
 
         // Nếu tất cả đều hợp lệ thì mới cho qua
-        if (isValid) {
-            console.log('Đăng nhập thành công với:', email, password);
-            // TODO: Thêm logic gọi API đăng nhập ở đây
+        // Nếu tất cả đều hợp lệ thì mới cho qua
+    if (isValid) {
+        console.log('Đăng nhập thành công với:', email, password);
+        
+        // 1. LƯU TOKEN VÀO STORAGE (Bây giờ await sẽ hoạt động)
+        await storeUserToken("fake-jwt-token-for-user"); 
 
-            // Sau khi đăng nhập thành công thì chuyển sang Home:
-             navigation.navigate('Home');
-        }
+        // 2. Chuyển sang màn hình Home và xóa lịch sử điều hướng
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+        });
+    }
     };
 
     // Xử lý khi người dùng gõ phím để xóa lỗi ngay lập tức

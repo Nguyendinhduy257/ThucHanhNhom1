@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -19,62 +19,70 @@ import DairyEggsScreen from './screens/DairyEggsScreen';
 import CartScreen from './screens/CartScreen';
 import FavouriteScreen from './screens/FavouriteScreen';
 import { FavouriteProvider } from './screens/FavouriteContext';
+import CheckoutModal from './screens/CheckoutModal';
+import SuccessScreen from './screens/SuccessScreen';
+import ErrorModal from './screens/ErrorModal';
+import ProfileScreen from './screens/ProfileScreen';
+import { getUserToken } from './screens/storageHelper'; // Hàm lấy token từ storage
 
+import React, { useState, useEffect } from 'react'; // Thêm useEffect, useState
+import { View, ActivityIndicator } from 'react-native';
+import OrderScreen from './screens/OrderScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [userToken, setUserToken] = useState(null);
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const token = await getUserToken();
+      setUserToken(token);
+      setIsLoading(false);
+    };
+    checkLogin();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color="#53B175" />
+      </View>
+    );
+  }
+
   return (
     <FavouriteProvider>
       <NavigationContainer>
+        {/* Chỉ giữ lại 1 Navigator duy nhất */}
         <Stack.Navigator
-          initialRouteName="Splash"
-          screenOptions={{ headerShown: false }} // Ẩn thanh header mặc định của hệ thống
+          // Dùng logic điều hướng ở đây
+          initialRouteName={userToken ? "Home" : "Splash"}
+          screenOptions={{ headerShown: false }}
         >
-          {/* Màn hình 1: Splash xanh lá */}
+          {/* Màn hình Splash */}
           <Stack.Screen name="Splash" component={SplashScreen} />
 
-          {/* Màn hình 2: Welcome (Anh nông dân) */}
+          {/* Các màn hình khác */}
           <Stack.Screen name="Onboarding" component={onboardingScreen} />
-
-          {/* Màn hình 3: Login */}
           <Stack.Screen name="SignIn" component={LoginScreen} />
-
-          {/* Màn hình 4: Nhập số điện thoại */}
           <Stack.Screen name="MobileNumber" component={MobileNumberScreen} />
-
-          {/* Màn hình 5: Nhập mã OTP */}
           <Stack.Screen name="OTPScreen" component={OTPScreen} />
-
-          {/** Màn hình 6: Chọn vị trí */}
           <Stack.Screen name="LocationScreen" component={LocationScreen} />
-
-          {/* Màn hình 7: Đăng nhập final */}
           <Stack.Screen name="LoginFinal" component={LoginFinalScreen} />
-
-          {/* Màn hình 8: Đăng ký */}
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-
-          {/* Màn hình 9: Trang chủ */}
-          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-          
-          {/* Màn hình 10: Chi tiết sản phẩm */}
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
-          
-          {/* Màn hình 11: Khám phá */}
           <Stack.Screen name="Explore" component={ExploreScreen} />
-          
-          {/* Màn hình 12: Beverages */}
           <Stack.Screen name="Beverages" component={BeveragesScreen} />
-          
-          {/* Màn hình 13: Dairy & Eggs */}
           <Stack.Screen name="DairyEggs" component={DairyEggsScreen} />
-          
-          {/* Màn hình 14: Giỏ hàng */}
           <Stack.Screen name="Cart" component={CartScreen} />
-          
-          {/* Màn hình 15: Yêu thích */}
           <Stack.Screen name="Favourite" component={FavouriteScreen} />
-
+          <Stack.Screen name="Checkout" component={CheckoutModal} />
+          <Stack.Screen name="Success" component={SuccessScreen} />
+          <Stack.Screen name="Error" component={ErrorModal} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="OrderScreen" component={OrderScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </FavouriteProvider>

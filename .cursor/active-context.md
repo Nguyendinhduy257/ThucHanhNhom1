@@ -1,190 +1,110 @@
 > **BrainSync Context Pumper** 🧠
-> Dynamically loaded for active file: `screens\HomeScreen.js` (Domain: **Frontend (React/UI)**)
+> Dynamically loaded for active file: `screens\OrderScreen.js` (Domain: **Frontend (React/UI)**)
 
 ### 📐 Frontend (React/UI) Conventions & Fixes
-- **[what-changed] Replaced dependency IMPORT — improves module reusability**: - // --- CẤU HÌNH RESPONSIVE ---
-+ // IMPORT DỮ LIỆU TỪ FILE DATA
-- const { width, height } = Dimensions.get('window');
-+ import { productsData } from '../data';
-- const SCREEN_MARGIN = 25; 
+- **[what-changed] 🟢 Edited screens/OrderScreen.js (23 changes, 2min)**: Active editing session on screens/OrderScreen.js.
+23 content changes over 2 minutes.
+- **[what-changed] what-changed in OrderScreen.js**: -                     <Ionicons name="chevron-back" size={28} color="#181725" />
++                     <Ionicons name="home" size={28} color="#181725" />
+
+📌 IDE AST Context: Modified symbols likely include [OrderScreen, styles, default]
+- **[what-changed] what-changed in OrderScreen.js**: -             
 + 
-- const CARD_WIDTH = width * 0.43; 
-+ // --- CẤU HÌNH RESPONSIVE ---
+-     <Ionicons name="chevron-back" size={28} color="#181725" />
++                     <Ionicons name="chevron-back" size={28} color="#181725" />
+- </TouchableOpacity>
++                 </TouchableOpacity>
+
+📌 IDE AST Context: Modified symbols likely include [OrderScreen, styles, default]
+- **[what-changed] Refactored TouchableOpacity logic — improves module reusability**: -                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
++                 <TouchableOpacity onPress={() => navigation.navigate("Home")} style={styles.backBtn}>
+-                     <Ionicons name="chevron-back" size={28} color="#181725" />
++     <Ionicons name="chevron-back" size={28} color="#181725" />
+-                 </TouchableOpacity>
++ </TouchableOpacity>
+-                 <Text style={styles.headerTitle}>Order History</Text>
++ 
+-                 <View style={{ width: 28 }} />
++                 <Text style={styles.headerTitle}>Order History</Text>
+-             </View>
++                 <View style={{ width: 28 }} />
 - 
-+ const { width, height } = Dimensions.get('window');
-- // --- COMPONENT CON: Thẻ Sản Phẩm ---
-+ const SCREEN_MARGIN = 25; 
-- const ProductCard = ({ product, navigation }) => (
-+ const CARD_WIDTH = width * 0.43; 
--   <View style={styles.cardContainer}>
++             </View>
+-             {orders.length === 0 ? (
 + 
--     <TouchableOpacity 
-+ // --- COMPONENT CON: Thẻ Sản Phẩm ---
--       onPress={() => navigation.navigate('ProductDetail', { product })}
-+ const ProductCard = ({ product, navigation }) => (
--       style={styles.imageWrapper}
-+   <View style={styles.cardContainer}>
--     >
-+     <TouchableOpacity 
--       <Image source={product.imagePath} style={styles.cardImage} resizeMode="contain" />
-+       onPress={() => navigation.navigate('ProductDetail', { product })}
--     </TouchableOpacity>
-+       style={styles.imageWrapper}
--     
-+     >
--     <View>
-+       <Image source={product.imagePath} style={styles.cardImage} resizeMode="contain" />
--       <Text style={styles.cardTitle} numberOfLines={1}>{product.title}</Text>
-+     </TouchableOpacity>
--       <Text style={styles.cardSubtitle} numberOfLines={1}>{product.subTitle}</Text>
-+     
--     </View>
-+     <View>
--     
-+       <Text style={styles.cardTitle} numberOfLines={1}>{product.title}</Text>
--     <View style={styles.cardFooter}>
-+       <Text style={styles.cardSubtitle} numberOfLines={1}>{product.subTitle}</Text>
--       <Text style={styles.cardPrice}>${product.price}</Text>
-+     </View>
--       <TouchableOpacity 
-+     
--         style={styles.addButton}
-+     <View style={styles.cardFooter}>
--         activeOpacity={0.8}
-+       <Text style={styles.cardPrice}>${product.price}</Text>
--         onPress={() => navigation.navigate('ProductDetail', { 
+-                 <View style={styles.emptyContainer}>
++             {orders.length === 0 ? (
+-                     <Ionicons name="receipt-outline" size={64} color="#B3B3B3" />
++                 <View style={styles.emptyContainer}>
+-                     <Text style={styles.emptyText}>Chưa có đơn hàng nào.</Text>
++                     <Ionicons name="receipt-outline" size={64} color="#B3B3B3" />
+-                 </View>
++                     <Text style={styles.emptyText}>Chưa có đơn hàng nào.</Text>
+-             ) : (
++                 </View>
+-                 <FlatList
++             ) : (
+-                     data={orders}
++                 <FlatList
+-                     renderItem={renderOrderItem}
++                     data={orders}
+-                     keyExtractor={item => item.id}
++                     renderItem={renderOrderItem}
+-                     contentContainerStyle={styles.listContent}
++                     keyExtractor={item => item.id}
+-                 />
++                     contentContainerStyle={styles.listContent}
+-             )}
++                 />
+-         </SafeAreaView>
++             )}
+-     );
++         </SafeAreaView>
+- };
++     );
+- 
++ };
+- const styles
 … [diff truncated]
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[what-changed] 🟢 Edited screens/HomeScreen.js (178 changes, 17min)**: Active editing session on screens/HomeScreen.js.
-178 content changes over 17 minutes.
-- **[what-changed] 🟢 Edited screens/HomeScreen.js (333 changes, 11min)**: Active editing session on screens/HomeScreen.js.
-333 content changes over 11 minutes.
-- **[convention] Replaced dependency DairyAndEgg — confirmed 13x**: -             product={{ id: 'ex_2', imagePath: require('../assets/DairyAndEgg.png'), title: "Milk Cheese", subTitle: "1kg, Priceg", price: "21.99" }} 
-+             product={{ id: 'ex_6', imagePath: require('../assets/DairyAndEgg.png'), title: "Milk Cheese", subTitle: "1kg, Priceg", price: "21.99" }} 
+📌 IDE AST Context: Modified symbols likely include [OrderScreen, styles, default]
+- **[what-changed] 🟢 Edited screens/ProfileScreen.js (8 changes, 1min)**: Active editing session on screens/ProfileScreen.js.
+8 content changes over 1 minutes.
+- **[what-changed] what-changed in ProfileScreen.js**: -                 <MenuItem icon="bag-handle-outline" label="Orders" onPress={() => navigation} />
++                 <MenuItem icon="bag-handle-outline" label="Orders" onPress={() => navigation.navigate("OrderScreen")} />
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency Noodle — confirmed 3x**: -             product={{ id: 'ex_2', imagePath: require('../assets/eggnoodle1.png'), title: "Egg Noodle", subTitle: "1kg, Priceg", price: "12.99" }} 
-+             product={{ id: 'ex_5', imagePath: require('../assets/eggnoodle1.png'), title: "Egg Noodle", subTitle: "1kg, Priceg", price: "12.99" }} 
+📌 IDE AST Context: Modified symbols likely include [ProfileScreen, styles, default]
+- **[what-changed] what-changed in ProfileScreen.js**: -                 <MenuItem icon="bag-handle-outline" label="Orders" onPress={() => } />
++                 <MenuItem icon="bag-handle-outline" label="Orders" onPress={() => navigation} />
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency Pastal — confirmed 3x**: -             product={{ id: 'ex_2', imagePath: require('../assets/eggPasta.png'), title: "Egg Pastal", subTitle: "1kg, Priceg", price: "8.99" }} 
-+             product={{ id: 'ex_4', imagePath: require('../assets/eggPasta.png'), title: "Egg Pastal", subTitle: "1kg, Priceg", price: "8.99" }} 
+📌 IDE AST Context: Modified symbols likely include [ProfileScreen, styles, default]
+- **[what-changed] what-changed in ProfileScreen.js**: -                 <MenuItem icon="bag-handle-outline" label="Orders" onPress={() => {}} />
++                 <MenuItem icon="bag-handle-outline" label="Orders" onPress={() => } />
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency Sprite — confirmed 5x**: -             product={{ id: 'bs_2', imagePath: require('../assets/sprite.png'), title: "Sprite", subTitle: "250ml, Priceg", price: "17.99" }} 
-+             product={{ id: 'bs_5', imagePath: require('../assets/sprite.png'), title: "Sprite", subTitle: "250ml, Priceg", price: "17.99" }} 
+📌 IDE AST Context: Modified symbols likely include [ProfileScreen, styles, default]
+- **[what-changed] 🟢 Edited screens/SuccessScreen.js (35 changes, 1min)**: Active editing session on screens/SuccessScreen.js.
+35 content changes over 1 minutes.
+- **[what-changed] what-changed in SuccessScreen.js**: -         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('Order')}>
++         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('OrderScreen')}>
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency White — confirmed 5x**: -             product={{ id: 'bs_2', imagePath: require('../assets/EggsV1.png'), title: "White Egg", subTitle: "350gm, Priceg", price: "9.99" }} 
-+             product={{ id: 'bs_4', imagePath: require('../assets/EggsV1.png'), title: "White Egg", subTitle: "350gm, Priceg", price: "9.99" }} 
+📌 IDE AST Context: Modified symbols likely include [SuccessScreen, styles, default]
+- **[what-changed] what-changed in SuccessScreen.js**: -         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate()}>
++         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate('Order')}>
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency AnhThitGa — confirmed 3x**: -             product={{ id: 'meat_2', imagePath: require('../assets/AnhThitGa.png'), title: "Broiler Chicken", subTitle: "1kg, Priceg", price: "24.99" }} 
-+             product={{ id: 'meat_4', imagePath: require('../assets/AnhThitGa.png'), title: "Broiler Chicken", subTitle: "1kg, Priceg", price: "24.99" }} 
+📌 IDE AST Context: Modified symbols likely include [SuccessScreen, styles, default]
+- **[what-changed] what-changed in SuccessScreen.js**: -         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate{}}>
++         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate()}>
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency AnhMiengThit — confirmed 5x**: -             product={{ id: 'meat_1', imagePath: require('../assets/AnhMiengThit.png'), title: "Beef Bone", subTitle: "1kg, Priceg", price: "9.99" }} 
-+             product={{ id: 'meat_3', imagePath: require('../assets/AnhMiengThit.png'), title: "Beef Bone", subTitle: "1kg, Priceg", price: "9.99" }} 
+📌 IDE AST Context: Modified symbols likely include [SuccessScreen, styles, default]
+- **[what-changed] what-changed in SuccessScreen.js**: -         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navig{}}>
++         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navigate{}}>
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[what-changed] what-changed in HomeScreen.js**: -         </ScrollView>
-+                     <ProductCard 
--       </ScrollView>
-+             navigation={navigation} 
-- 
-+             product={{ id: 'meat_2', imagePath: require('../assets/AnhThitGa.png'), title: "Broiler Chicken", subTitle: "1kg, Priceg", price: "4.99" }} 
--       {/* Bottom Navigation với Highlight và khoảng cách an toàn */}
-+           />
--       <View style={styles.navContainer}>
-+         </ScrollView>
--         <View style={styles.bottomNav}>
-+       </ScrollView>
--             {[
-+ 
--                 { name: 'Shop', icon: 'storefront', screen: 'Home' },
-+       {/* Bottom Navigation với Highlight và khoảng cách an toàn */}
--                 { name: 'Explore', icon: 'search', screen: 'Explore' },
-+       <View style={styles.navContainer}>
--                 { name: 'Cart', icon: 'cart', screen: 'Cart' },
-+         <View style={styles.bottomNav}>
--                 { name: 'Favourite', icon: 'heart', screen: 'Favourite' },
-+             {[
--                 { name: 'Account', icon: 'person', screen: 'Account' }
-+                 { name: 'Shop', icon: 'storefront', screen: 'Home' },
--             ].map((tab) => {
-+                 { name: 'Explore', icon: 'search', screen: 'Explore' },
--                 const isActive = activeTab === tab.name;
-+                 { name: 'Cart', icon: 'cart', screen: 'Cart' },
--                 return (
-+                 { name: 'Favourite', icon: 'heart', screen: 'Favourite' },
--                     <TouchableOpacity 
-+                 { name: 'Account', icon: 'person', screen: 'Account' }
--                         key={tab.name}
-+             ].map((tab) => {
--                         style={styles.navItem} 
-+                 const isActive = activeTab === tab.name;
--                         onPress={() => {
-+                 return (
--                             setActiveTab(tab.name);
-+                     <TouchableOpacity 
--                             if(tab.screen
-… [diff truncated]
+📌 IDE AST Context: Modified symbols likely include [SuccessScreen, styles, default]
+- **[what-changed] what-changed in SuccessScreen.js**: -         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.na{}}>
++         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.navig{}}>
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[what-changed] what-changed in HomeScreen.js**: -         </ScrollView>
-+                     <ProductCard 
--       </ScrollView>
-+             navigation={navigation} 
-- 
-+             product={{ id: 'meat_1', imagePath: require('../assets/AnhMiengThit.png'), title: "Beef Bone", subTitle: "1kg, Priceg", price: "4.99" }} 
--       {/* Bottom Navigation với Highlight và khoảng cách an toàn */}
-+           />
--       <View style={styles.navContainer}>
-+         </ScrollView>
--         <View style={styles.bottomNav}>
-+       </ScrollView>
--             {[
-+ 
--                 { name: 'Shop', icon: 'storefront', screen: 'Home' },
-+       {/* Bottom Navigation với Highlight và khoảng cách an toàn */}
--                 { name: 'Explore', icon: 'search', screen: 'Explore' },
-+       <View style={styles.navContainer}>
--                 { name: 'Cart', icon: 'cart', screen: 'Cart' },
-+         <View style={styles.bottomNav}>
--                 { name: 'Favourite', icon: 'heart', screen: 'Favourite' },
-+             {[
--                 { name: 'Account', icon: 'person', screen: 'Account' }
-+                 { name: 'Shop', icon: 'storefront', screen: 'Home' },
--             ].map((tab) => {
-+                 { name: 'Explore', icon: 'search', screen: 'Explore' },
--                 const isActive = activeTab === tab.name;
-+                 { name: 'Cart', icon: 'cart', screen: 'Cart' },
--                 return (
-+                 { name: 'Favourite', icon: 'heart', screen: 'Favourite' },
--                     <TouchableOpacity 
-+                 { name: 'Account', icon: 'person', screen: 'Account' }
--                         key={tab.name}
-+             ].map((tab) => {
--                         style={styles.navItem} 
-+                 const isActive = activeTab === tab.name;
--                         onPress={() => {
-+                 return (
--                             setActiveTab(tab.name);
-+                     <TouchableOpacity 
--                             if(tab.screen !=
-… [diff truncated]
+📌 IDE AST Context: Modified symbols likely include [SuccessScreen, styles, default]
+- **[what-changed] what-changed in SuccessScreen.js**: -         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.{}}>
++         <TouchableOpacity style={styles.trackBtn} onPress={() => navigation.na{}}>
 
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency Diet — confirmed 4x**: -             product={{ id: 'bs_2', imagePath: require('../assets/Coke1.png'), title: "Diet Coke", subTitle: "250gm, Priceg", price: "4.99" }} 
-+             product={{ id: 'bs_2', imagePath: require('../assets/Coke1.png'), title: "Diet Coke", subTitle: "250gm, Priceg", price: "1.99" }} 
-
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[what-changed] Replaced dependency Priceg**: -             product={{ id: 'bs_2', imagePath: require('../assets/sprite.png'), title: "Ginger", subTitle: "250gm, Priceg", price: "4.99" }} 
-+             product={{ id: 'bs_2', imagePath: require('../assets/sprite.png'), title: "Spi", subTitle: "250gm, Priceg", price: "4.99" }} 
-
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
-- **[convention] Replaced dependency Ginger — confirmed 5x**: -             product={{ id: 'bs_2', imagePath: require('../assets/AnhCuGung.png'), title: "Ginger", subTitle: "250gm, Priceg", price: "4.99" }} 
-+             product={{ id: 'bs_2', imagePath: require('../assets/sprite.png'), title: "Ginger", subTitle: "250gm, Priceg", price: "4.99" }} 
-
-📌 IDE AST Context: Modified symbols likely include [width, height, SCREEN_MARGIN, CARD_WIDTH, ProductCard]
+📌 IDE AST Context: Modified symbols likely include [SuccessScreen, styles, default]

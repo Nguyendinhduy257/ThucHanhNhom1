@@ -1,96 +1,160 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-    TouchableOpacity,
-    FlatList,
-    Platform
+    View, Text, StyleSheet, SafeAreaView, Image,
+    TouchableOpacity, FlatList, Platform
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import CheckoutModal from './CheckoutModal';
+import ErrorModal from './ErrorModal';
 
 // --- DỮ LIỆU MẪU GIỎ HÀNG ---
-const initialCartData = [
-    {
-        id: '1',
-        name: 'Bell Pepper Red',
-        size: '1kg, Price',
-        price: 4.99,
-        quantity: 1,
-        image: require('../assets/AnhOtChuong.png')
-    },
-    {
-        id: '2',
-        name: 'Egg Chicken Red',
-        size: '4pcs, Price',
-        price: 1.99,
-        quantity: 1,
-        image: require('../assets/RedEggs.png')
-    },
-    {
-        id: '3',
-        name: 'Organic Bananas',
-        size: '12kg, Price',
-        price: 3.00,
-        quantity: 1,
-        image: require('../assets/AnhTraiChuoi.png')
-    },
-    {
-        id: '4',
-        name: 'Ginger',
-        size: '250gm, Price',
-        price: 2.99,
-        quantity: 1,
-        image: require('../assets/AnhCuGung.png')
-    },
-];
+// const initialCartData = [
+//     {
+//         id: '1',
+//         name: 'Bell Pepper Red',
+//         size: '1kg, Price',
+//         price: 4.99,
+//         quantity: 1,
+//         image: require('../assets/AnhOtChuong.png')
+//     },
+//     {
+//         id: '2',
+//         name: 'Egg Chicken Red',
+//         size: '4pcs, Price',
+//         price: 1.99,
+//         quantity: 1,
+//         image: require('../assets/RedEggs.png')
+//     },
+//     {
+//         id: '3',
+//         name: 'Organic Bananas',
+//         size: '12kg, Price',
+//         price: 3.00,
+//         quantity: 1,
+//         image: require('../assets/AnhTraiChuoi.png')
+//     },
+//     {
+//         id: '4',
+//         name: 'Ginger',
+//         size: '250gm, Price',
+//         price: 2.99,
+//         quantity: 1,
+//         image: require('../assets/AnhCuGung.png')
+//     },
+// ];
 
-// Thêm prop navigation để dùng được tính năng chuyển trang
 const CartScreen = ({ navigation }) => {
-    const [cartItems, setCartItems] = useState(initialCartData);
-
+    const [cartItems, setCartItems] = useState([]); // Khởi tạo với mảng rỗng
+    const [isCheckoutVisible, setCheckoutVisible] = useState(false);
+    const [isErrorVisible, setErrorVisible] = useState(false); // Cần có dòng này
+    // --- TẢI DỮ LIỆU TỪ ASYNCSTORAGE MỖI KHI MỞ MÀN HÌNH ---
+    useFocusEffect(
+        useCallback(() => {
+            const loadCart = async () => {
+                try {
+                    const storedCart = await AsyncStorage.getItem('@cart_items');
+                    if (storedCart) {
+                        setCartItems(JSON.parse(storedCart));
+                    }
+                } catch (error) {
+                    console.log("Lỗi tải giỏ hàng", error);
+                }
+            };
+            loadCart();
+        }, [])
+    );
+    // --- HÀM LƯU DỮ LIỆU CHUNG (DÙNG SAU KHI TĂNG/GIẢM/XÓA) ---
+    const saveCartToStorage = async (newCart) => {
+        try {
+            await AsyncStorage.setItem('@cart_items', JSON.stringify(newCart));
+            setCartItems(newCart); // Cập nhật lại giao diện UI
+        } catch (error) {
+            console.log("Lỗi lưu giỏ hàng", error);
+        }
+    };
     // --- CÁC HÀM XỬ LÝ SỐ LƯỢNG ---
     const increaseQuantity = (id) => {
-        setCartItems(prevItems =>
-            prevItems.map(item =>
-                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-            )
+        const newCart = cartItems.map(item =>
+            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
         );
+        saveCartToStorage(newCart); // Gọi hàm lưu thay đổi
     };
 
     const decreaseQuantity = (id) => {
-        setCartItems(prevItems =>
-            prevItems.map(item =>
-                item.id === id && item.quantity > 1
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-            )
+        const newCart = cartItems.map(item =>
+            item.id === id && item.quantity > 1
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
         );
+        saveCartToStorage(newCart); // Gọi hàm lưu thay đổi
     };
 
     const removeItem = (id) => {
-        setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+        // Lọc bỏ sản phẩm có id được chọn
+        const newCart = cartItems.filter(item => item.id !== id);
+        saveCartToStorage(newCart); // Gọi hàm lưu thay đổi
     };
 
+    
     // Tính tổng tiền
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+    };
+    // --- Xử lý sự kiện từ CheckoutModal ---
+    const handleCheckoutSuccess = async () => {
+        try {
+            // 1. Kiểm tra giỏ hàng rỗng
+            if (cartItems.length === 0) {
+                alert("Giỏ hàng đang trống!");
+                return;
+            }
+
+            // 2. Tạo đối tượng đơn hàng mới
+            const newOrder = {
+                id: Date.now().toString(), // Tạo ID ngẫu nhiên theo thời gian
+                date: new Date().toLocaleString(), // Lấy ngày giờ hiện tại
+                items: cartItems, // Toàn bộ sản phẩm trong giỏ
+                totalAmount: getTotalPrice() // Tổng tiền
+            };
+
+            // 3. Lấy danh sách đơn hàng đã có từ AsyncStorage
+            const existingOrders = await AsyncStorage.getItem('@orders');
+            let orders = existingOrders ? JSON.parse(existingOrders) : [];
+
+            // 4. Thêm đơn hàng mới lên đầu danh sách
+            orders.unshift(newOrder);
+
+            // 5. Lưu danh sách đơn hàng mới lại vào AsyncStorage
+            await AsyncStorage.setItem('@orders', JSON.stringify(orders));
+
+            // 6. XÓA giỏ hàng vì đã thanh toán xong
+            await AsyncStorage.removeItem('@cart_items');
+            setCartItems([]); 
+
+            // 7. Đóng modal và điều hướng qua màn hình Success
+            setCheckoutVisible(false);
+            navigation.navigate('Success');
+
+        } catch (error) {
+            console.log("Lỗi khi lưu đơn hàng:", error);
+            alert("Có lỗi xảy ra khi xử lý đơn hàng.");
+        }
+    };
+
+    const handleCheckoutFail = () => {
+        setErrorVisible(true); // Mở modal báo lỗi tại chỗ
     };
 
     // --- COMPONENT: Từng Sản phẩm trong giỏ ---
     const renderCartItem = ({ item }) => (
         <View style={styles.cartItemContainer}>
-            {/* Cột Trái: Ảnh */}
             <View style={styles.imageContainer}>
                 <Image source={item.image} style={styles.productImage} resizeMode="contain" />
             </View>
 
-            {/* Cột Phải: Thông tin sản phẩm */}
             <View style={styles.infoContainer}>
-
-                {/* Hàng 1: Tên và Nút Xóa */}
                 <View style={styles.nameRow}>
                     <Text style={styles.productName}>{item.name}</Text>
                     <TouchableOpacity onPress={() => removeItem(item.id)} style={styles.removeButton}>
@@ -98,10 +162,8 @@ const CartScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
-                {/* Hàng 2: Khối lượng / Kích thước */}
                 <Text style={styles.productSize}>{item.size}</Text>
 
-                {/* Hàng 3: Điều chỉnh số lượng và Giá tiền */}
                 <View style={styles.actionRow}>
                     <View style={styles.quantityContainer}>
                         <TouchableOpacity
@@ -123,7 +185,6 @@ const CartScreen = ({ navigation }) => {
 
                     <Text style={styles.productPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
                 </View>
-
             </View>
         </View>
     );
@@ -148,9 +209,13 @@ const CartScreen = ({ navigation }) => {
 
             {/* --- PHẦN NÚT CHECKOUT --- */}
             <View style={styles.checkoutSection}>
-                <TouchableOpacity style={styles.checkoutButton} activeOpacity={0.8}>
+                {/* SỰ KIỆN CHUYỂN SANG MÀN HÌNH CHECKOUT */}
+                <TouchableOpacity
+                    style={styles.checkoutButton}
+                    activeOpacity={0.8}
+                    onPress={() => setCheckoutVisible(true)}
+                >
                     <Text style={styles.checkoutText}>Go to Checkout</Text>
-                    
                     <View style={styles.totalPriceBadge}>
                         <Text style={styles.totalPriceText}>${getTotalPrice()}</Text>
                     </View>
@@ -159,25 +224,21 @@ const CartScreen = ({ navigation }) => {
 
             {/* --- THANH BOTTOM NAVIGATION --- */}
             <View style={styles.bottomNav}>
-                {/* Nút Shop (Sửa để điều hướng về Home) */}
                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
                     <Ionicons name="storefront-outline" size={24} color="#181725" />
                     <Text style={styles.navText}>Shop</Text>
                 </TouchableOpacity>
 
-                {/* Nút Explore */}
                 <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Explore')}>
                     <Ionicons name="search-outline" size={24} color="#181725" />
                     <Text style={styles.navText}>Explore</Text>
                 </TouchableOpacity>
 
-                {/* Nút Cart - Đang active (Màu xanh, icon đậm) */}
                 <TouchableOpacity style={styles.navItem}>
                     <Ionicons name="cart" size={24} color="#53B175" />
                     <Text style={[styles.navText, { color: '#53B175' }]}>Cart</Text>
                 </TouchableOpacity>
 
-                {/* Nút Favourite */}
                 <TouchableOpacity
                     style={styles.navItem}
                     onPress={() => navigation.navigate('Favourite')}
@@ -186,13 +247,39 @@ const CartScreen = ({ navigation }) => {
                     <Text style={styles.navText}>Favourite</Text>
                 </TouchableOpacity>
 
-                {/* Nút Account */}
-                <TouchableOpacity style={styles.navItem}>
+                {/* ĐÃ THÊM SỰ KIỆN CHUYỂN SANG MÀN HÌNH PROFILE */}
+                <TouchableOpacity
+                    style={styles.navItem}
+                    onPress={() => navigation.navigate('Profile')}
+                >
                     <Ionicons name="person-outline" size={24} color="#181725" />
                     <Text style={styles.navText}>Account</Text>
                 </TouchableOpacity>
+
             </View>
 
+            {/* <CheckoutModal
+                visible={isCheckoutVisible}
+                onClose={() => setCheckoutVisible(false)}
+                totalAmount={getTotalPrice()}
+                navigation={navigation}
+            /> */}
+            <CheckoutModal
+                visible={isCheckoutVisible}
+                onClose={() => setCheckoutVisible(false)}
+                totalAmount={getTotalPrice()}
+                onSuccess={handleCheckoutSuccess}
+                onFail={handleCheckoutFail}
+            />
+            <ErrorModal
+                visible={isErrorVisible}
+                onClose={() => setErrorVisible(false)}
+                onTryAgain={() => setErrorVisible(false)} // Đóng modal lỗi để chọn lại
+                onBackHome={() => {
+                    setErrorVisible(false);
+                    navigation.navigate('Home'); // Điều hướng về Home
+                }}
+            />
         </SafeAreaView>
     );
 };
@@ -327,8 +414,6 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: '600',
     },
-
-    // --- CÁC STYLE CHO BOTTOM NAV ---
     bottomNav: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -338,7 +423,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         borderTopWidth: 1,
         borderTopColor: '#E2E2E2',
-        paddingBottom: Platform.OS === 'ios' ? 25 : 15, // Tạo khoảng trống cho tai thỏ/home bar trên iOS
+        paddingBottom: Platform.OS === 'ios' ? 25 : 15,
     },
     navItem: {
         alignItems: 'center',
