@@ -1,7 +1,7 @@
 
 
 # Project Memory — ThucHanhNhom1
-> 1829 notes | Score threshold: >40
+> 1832 notes | Score threshold: >40
 
 ## Safety — Never Run Destructive Commands
 
@@ -34,14 +34,14 @@
 
 ## Project Standards
 
+- Updated react database schema — improves module reusability — confirmed 4x
+- what-changed in shared-context.json — confirmed 3x
+- Optimized Score — parallelizes async operations for speed — confirmed 3x
 - 🟢 Edited screens/ProfileScreen.js (8 changes, 1min) — confirmed 3x
 - what-changed in ProfileScreen.js — confirmed 3x
 - discovery in shared-context.json — confirmed 4x
 - what-changed in OrderScreen.js — confirmed 3x
 - what-changed in shared-context.json — confirmed 14x
-- what-changed in App.js — confirmed 5x
-- Replaced auth React — improves module reusability — confirmed 4x
-- Optimized GOTCHA — confirmed 4x
 
 ## Known Fixes
 
@@ -55,7 +55,7 @@
 
 - Optimized Score — parallelizes async operations for speed
 - Optimized Score — parallelizes async operations for speed
-- Optimized Score — parallelizes async operations for speed
+- decision in ProductDetailScreen.js
 - decision in ProductDetailScreen.js
 
 ## Learned Patterns
