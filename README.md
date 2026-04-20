@@ -1,3 +1,8 @@
+
+
+
+
+
 Tác giả: Nguyễn Đình Duy - 23810310435 - D18CNPM4
 
 -  Hướng dẫn sử dụng:
@@ -41,8 +46,8 @@ https://github.com/user-attachments/assets/8d1434b7-86f7-42eb-a908-bf4d19a49e9d
 Video DEMO CHO ASYNC:
 
 
-
-
+[Video Demo Async quá nặng, đây là link Drive]
+https://drive.google.com/file/d/1nafJxQb4kwWSgH9nYrPeAVZsPRi_dRQZ/view?usp=sharing
 
 
 https://github.com/user-attachments/assets/c4821608-cf2f-460e-8872-19cd5d6dd962
